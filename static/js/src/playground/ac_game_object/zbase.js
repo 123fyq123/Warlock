@@ -27,14 +27,14 @@ class AcGameObject{
 
         for(let i = 0; i < AC_GAME_OBJECTS.length; i ++ ){
             if(AC_GAME_OBJECTS[i] === this) {
-                AC_GAME_OBJECTS.splice(i, 1);
+                AC_GAME_OBJECTS.splice(i, 1); // pop物体
                 break;
             }
         }
     }
 }
 
-let last_timestamp;
+let last_timestamp;// 上一个时间戳
 let AC_GAME_ANIMATION = function(timestamp) {
     for (let i = 0; i < AC_GAME_OBJECTS.length; i ++ ) {
         let obj = AC_GAME_OBJECTS[i];
@@ -42,12 +42,12 @@ let AC_GAME_ANIMATION = function(timestamp) {
             obj.start();
             obj.has_called_start = true;
         } else {
-            obj.timedelta = timestamp - last_timestamp;
+            obj.timedelta = timestamp - last_timestamp;// 记录时间差
             obj.update();
         }
     }
     last_timestamp = timestamp;
-    requestAnimationFrame(AC_GAME_ANIMATION);
+    requestAnimationFrame(AC_GAME_ANIMATION);// 递归调用API
 }
 
 requestAnimationFrame(AC_GAME_ANIMATION);
