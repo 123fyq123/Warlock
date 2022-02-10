@@ -104,7 +104,18 @@ class Player extends AcGameObject{
             }
         });
 
-        $(window).keydown(function(e){
+        this.playground.game_map.$canvas.keydown(function(e){
+            if (e.which === 13) { // enter键
+                if (outer.playground.mode === "multi mode") { // 多人模式打开聊天框
+                    outer.playground.chat_field.show_input();
+                    return false;
+                }
+            } else if (e.which === 27) { // esc键退出
+                if (outer.playground.mode === "multi mode") {
+                    outer.playground.chat_field.hide_input();
+                }
+            }
+
             if (outer.playground.state !== "fighting")
                 return true; // 人数未满无法释放技能
 
