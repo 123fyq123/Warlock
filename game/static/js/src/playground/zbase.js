@@ -2,10 +2,10 @@ class AcGamePlayground{
     constructor(root){
         this.root = root;
         this.$playground = $(`<div class="ac-game-playground"></div>`);
-
         this.hide();
         this.root.$ac_game.append(this.$playground);
         this.start();
+        this.player_count = 0;
     }
 
 
@@ -14,11 +14,27 @@ class AcGamePlayground{
         return color[Math.floor(Math.random() * 5)];
     }
 
+    create_uuid() {
+        let res = "";
+        for (let i = 0; i < 8; i ++ ) {
+            let x = parseInt(Math.floor(Math.random() * 10)); // 返回[0,1)之间的数
+            res += x;
+        }
+        return res;
+    }
+
     start(){
         let outer = this;
-        $(window).resize(function(){
+        let uuid = this.create_uuid();
+        $(window).on('resize.${uuid}', function(){
             outer.resize();
         });
+
+        if (this.root.AcWingOS) {
+            this.root.AcWingOS.api.window.on_close(function(){
+                $(window).off('resize.${uuid}');
+            });
+        }
     }
 
     resize() {
@@ -33,18 +49,20 @@ class AcGamePlayground{
             this.game_map.resize();
         }
     }
+
     show(mode){ // 打开playground
         let outer = this;
         this.$playground.show();
 
         this.width = this.$playground.width();
         this.height = this.$playground.height();
+        if (this.game_map) this.game_map = null;
         this.game_map = new GameMap(this);
 
         this.mode = mode;
         this.state = "waiting"; // waithing -> fighting
         this.notice_board = new NoticeBoard(this);
-
+        this.score_board = new ScoreBoard(this);
         this.player_count = 0;
         this.resize();
         this.players = [];
@@ -65,6 +83,27 @@ class AcGamePlayground{
     }
 
     hide(){
+        while (this.players && this.players.length > 0) {
+            this.players[0].destroy();
+        }
+
+        if (this.game_map) {
+            this.game_map.destroy();
+            this.game_map = null;
+        }
+
+        if (this.notice_board) {
+            this.notice_board.destroy();
+            this.notice_board = null;
+        }
+
+        if (this.score_board) {
+            this.score_board.destroy();
+            this.notice_board = null;
+        }
+
+        this.$playground.empty(); // 清空当前html对象
+
         this.$playground.hide()
     }
 }

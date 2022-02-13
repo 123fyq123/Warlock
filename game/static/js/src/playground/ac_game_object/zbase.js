@@ -25,6 +25,10 @@ class AcGameObject{
 
     }
 
+    late_update() { // 在每一帧的最后执行
+        
+    }
+
     on_destroy() { // 在被删除前执行
         
     }
@@ -55,6 +59,12 @@ let AC_GAME_ANIMATION = function(timestamp) {
             obj.update();
         }
     }
+
+    for(let i = 0; i <  AC_GAME_OBJECTS.length; i ++ ) {
+        let obj = AC_GAME_OBJECTS[i];
+        obj.late_update();
+    }
+
     last_timestamp = timestamp;
     requestAnimationFrame(AC_GAME_ANIMATION);// 递归调用API
 }
