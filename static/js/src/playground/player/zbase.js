@@ -245,7 +245,7 @@ class Player extends AcGameObject{
     }
 
     update_move() { // 更新玩家移动
-        if(this.character === "robot" && this.spent_time > 4 && Math.random() < 1/120.0) {
+        if(this.character === "robot" && this.spent_time > 3 && Math.random() < 1/120.0) {
             let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
             let tx = player.x + player.speed * this.vx * this.timedelta / 1000 * 0.3;
             let ty = player.y + player.speed * this.vy * this.timedelta / 1000 * 0.3;
@@ -344,9 +344,10 @@ class Player extends AcGameObject{
         if (this.character === "me")
             this.playground.state = "over";
 
-        for (let i = 0; i < this.playground.length; i ++ ) {
+        for (let i = 0; i < this.playground.players.length; i ++ ) {
             if (this.playground.players[i] === this ) {
                 this.playground.players.splice(i, 1);
+                this.playground.player_count -- ;
                 break;
             }
         }

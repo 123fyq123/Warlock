@@ -1,3 +1,36 @@
+class AcGameDesc {
+    constructor(root) {
+        this.root = root;
+        this.$desc = $(`
+<div class="ac-game-desc">
+    <div class="ac-game-desc-field">
+        <div class="ac-game-desc-field-item">
+            游戏说明
+        </div>
+        <br/>
+        <div class="ac-game-desc-field-explain">
+            <p>右键：点击可移动</p>
+            <p>q+左键：发射火球</p>
+            <p>f+左键：闪现</p>
+            <p>enter：多人模式下局内聊天</p>
+            <p>Esc：关闭聊天框</p>
+        </div>
+    </div>
+</div>
+            `);
+
+        this.$desc.hide();
+        this.root.$ac_game.append(this.$desc);
+        this.start();
+    }
+
+    start(){
+    }
+
+    show() {
+        this.$desc.show();
+    }
+}
 class AcGameMenu{
     constructor(root) {
         this.root = root;
@@ -15,6 +48,10 @@ class AcGameMenu{
         <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
             退出
         </div>
+        <br>
+        <div class="ac-game-menu-field-item ac-game-menu-field-item-explain">
+            游戏说明
+        </div>
     </div>
 </div>
 `);
@@ -23,6 +60,7 @@ class AcGameMenu{
         this.$single_mode = this.$menu.find('.ac-game-menu-field-item-single-mode');
         this.$multi_mode = this.$menu.find('.ac-game-menu-field-item-multi-mode');
         this.$settings = this.$menu.find('.ac-game-menu-field-item-settings');
+        this.$game_explain = this.$menu.find('.ac-game-menu-field-item-explain');
         this.start();
     }
 
@@ -44,6 +82,11 @@ class AcGameMenu{
 
         this.$settings.click(function(){
             outer.root.settings.logout_on_remote();
+        });
+
+        this.$game_explain.click(function(){
+            outer.hide();
+            outer.root.desc.show();
         });
     };
 
@@ -542,7 +585,7 @@ class Player extends AcGameObject{
     }
 
     update_move() { // 更新玩家移动
-        if(this.character === "robot" && this.spent_time > 4 && Math.random() < 1/120.0) {
+        if(this.character === "robot" && this.spent_time > 3 && Math.random() < 1/120.0) {
             let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
             let tx = player.x + player.speed * this.vx * this.timedelta / 1000 * 0.3;
             let ty = player.y + player.speed * this.vy * this.timedelta / 1000 * 0.3;
@@ -641,9 +684,10 @@ class Player extends AcGameObject{
         if (this.character === "me")
             this.playground.state = "over";
 
-        for (let i = 0; i < this.playground.length; i ++ ) {
+        for (let i = 0; i < this.playground.players.length; i ++ ) {
             if (this.playground.players[i] === this ) {
                 this.playground.players.splice(i, 1);
+                this.playground.player_count -- ;
                 break;
             }
         }
@@ -1277,6 +1321,7 @@ export class AcGame{
         this.$ac_game = $('#' + id);
         this.AcWingOS = AcWingOS;
         this.settings = new Settings(this);
+        this.desc = new AcGameDesc(this);
         this.menu = new AcGameMenu(this);
         this.playground = new AcGamePlayground(this);
         this.start();
