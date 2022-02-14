@@ -1,0 +1,11 @@
+--2022-02-14 12:14:44--  https://cn.bing.com/images/search?view=detailV2
+Resolving cn.bing.com (cn.bing.com)... 202.89.233.100, 202.89.233.101
+Connecting to cn.bing.com (cn.bing.com)|202.89.233.100|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 531271 (519K) [text/html]
+Saving to: 'lbxx.gif'
+
+lbxx.gif            0%[            ]       0  --.-KB/s               lbxx.gif          100%[===========>] 518.82K  3.36MB/s    in 0.2s    
+
+2022-02-14 12:14:44 (3.36 MB/s) - 'lbxx.gif' saved [531271/531271]
+

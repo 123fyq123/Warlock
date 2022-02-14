@@ -1,7 +1,7 @@
 .ac-game-settings {
     width: 100%;
     height: 100%;
-    background-image: url("https://app1372.acapp.acwing.com.cn//static/image/menu/background.gif");
+    background-image: url("https://app1372.acapp.acwing.com.cn//static/image/menu/background");
     background-size: 100% 100%;
     user-select: none;
 }
@@ -241,4 +241,23 @@
     background-color: rgba(39,21,28, 0.6);
     border-radius: 10px;
     letter-spacing: 0.5vw;
+}
+
+.ac-game-desc-field-confirm{
+    margin-left: 25%;
+    color: white;
+    height: 6vh;
+    width: 14vw;
+    font-size: 4vh;
+    font-style: italic;
+    text-align: center;
+    background-color: red;
+    border-radius: 10px;
+    letter-spacing: 0.5vw;
+    cursor: pointer;
+}
+
+.ac-game-desc-field-confirm:hover{
+    transform:scale(1.2);
+    transition: 100ms;
 }

@@ -138,12 +138,12 @@ class Player extends AcGameObject{
 
     shoot_fireball(tx, ty) {
         let x = this.x, y = this.y;
-        let radius = 0.01;
+        let radius = 0.02;
         let angle = Math.atan2(ty - this.y, tx - this.x);
         let vx = Math.cos(angle);
         let vy = Math.sin(angle);
         let color = "orange";
-        let speed = 0.5;
+        let speed = 0.7;
         let move_length = 1;
         let fireball = new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);
         this.fireballs.push(fireball); // 由于火球会消失，这里存在一个数组里
@@ -212,13 +212,13 @@ class Player extends AcGameObject{
         this.time_id1 = setTimeout(function(){
             outer.playground.notice_board.write("3秒后返回主菜单");
             outer.time_id1 = null;
-        },1000);
+        },3000);
 
         this.time_id2 = setTimeout(function(){
             outer.playground.hide();
             outer.playground.root.menu.show();
             outer.time_id2 = null;
-        },2000);
+        },6000);
     }
     check_success() {
         if (this.playground.player_count === 1)

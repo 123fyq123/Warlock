@@ -15,20 +15,39 @@ class AcGameDesc {
             <p>enter：多人模式下局内聊天</p>
             <p>Esc：关闭聊天框</p>
         </div>
+        <br/>
+        <div class="ac-game-desc-field-confirm">
+            确认
+        </div>
     </div>
 </div>
             `);
 
         this.$desc.hide();
         this.root.$ac_game.append(this.$desc);
+
+        this.$confirm = this.$desc.find('.ac-game-desc-field-confirm');
+
         this.start();
     }
 
     start(){
+        this.add_listening_events();
     }
 
+    add_listening_events() {
+        let outer = this;
+        this.$confirm.click(function(){
+            outer.hide();
+            outer.root.menu.show();
+        });
+    }
     show() {
         this.$desc.show();
+    }
+
+    hide() {
+        this.$desc.hide();
     }
 }
 class AcGameMenu{
@@ -488,12 +507,12 @@ class Player extends AcGameObject{
 
     shoot_fireball(tx, ty) {
         let x = this.x, y = this.y;
-        let radius = 0.01;
+        let radius = 0.02;
         let angle = Math.atan2(ty - this.y, tx - this.x);
         let vx = Math.cos(angle);
         let vy = Math.sin(angle);
         let color = "orange";
-        let speed = 0.5;
+        let speed = 0.7;
         let move_length = 1;
         let fireball = new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);
         this.fireballs.push(fireball); // 由于火球会消失，这里存在一个数组里
@@ -562,13 +581,13 @@ class Player extends AcGameObject{
         this.time_id1 = setTimeout(function(){
             outer.playground.notice_board.write("3秒后返回主菜单");
             outer.time_id1 = null;
-        },1000);
+        },3000);
 
         this.time_id2 = setTimeout(function(){
             outer.playground.hide();
             outer.playground.root.menu.show();
             outer.time_id2 = null;
-        },2000);
+        },6000);
     }
     check_success() {
         if (this.playground.player_count === 1)
@@ -1110,10 +1129,10 @@ class AcGamePlayground{
         this.player_count = 0;
         this.resize();
         this.players = [];
-        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.15, "me", this.root.settings.username, this.root.settings.photo));
+        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.32, "me", this.root.settings.username, this.root.settings.photo));
         if (mode === "single mode") {
             for (let i = 0; i < 5; i ++ ) {
-                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  this.get_random_color(), 0.15, "robot"));
+                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  this.get_random_color(), 0.32, "robot"));
             }
         } else if (mode === "multi mode") {
             this.chat_field = new ChatField(this);

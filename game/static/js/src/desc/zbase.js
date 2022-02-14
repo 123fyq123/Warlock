@@ -15,19 +15,38 @@ class AcGameDesc {
             <p>enter：多人模式下局内聊天</p>
             <p>Esc：关闭聊天框</p>
         </div>
+        <br/>
+        <div class="ac-game-desc-field-confirm">
+            确认
+        </div>
     </div>
 </div>
             `);
 
         this.$desc.hide();
         this.root.$ac_game.append(this.$desc);
+
+        this.$confirm = this.$desc.find('.ac-game-desc-field-confirm');
+
         this.start();
     }
 
     start(){
+        this.add_listening_events();
     }
 
+    add_listening_events() {
+        let outer = this;
+        this.$confirm.click(function(){
+            outer.hide();
+            outer.root.menu.show();
+        });
+    }
     show() {
         this.$desc.show();
+    }
+
+    hide() {
+        this.$desc.hide();
     }
 }
