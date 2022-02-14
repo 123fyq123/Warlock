@@ -11,8 +11,14 @@ class ScoreBoard extends AcGameObject {
         this.lose_img = new Image();
         this.lose_img.src = "https://cdn.acwing.com/media/article/image/2021/12/17/1_9254b5f95e-lose.png";
 
+        this.$return_button = $(`
+<div class="ac-game-score-board-return">
+    返回
+</div>
+`);
+        this.playground.$playground.append(this.$return_button);
+        this.$return_button.hide();
         this.start();
-
     }
 
     start() {
@@ -28,6 +34,15 @@ class ScoreBoard extends AcGameObject {
 
     late_update() {
         this.render();
+        this.add_listening_events();
+    }
+
+    add_listening_events() {
+        let outer = this;
+        this.$return_button.click(function(){
+            outer.playground.hide();
+            outer.playground.root.menu.show();
+        });
     }
 
     render() {

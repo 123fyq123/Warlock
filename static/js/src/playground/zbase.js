@@ -2,6 +2,7 @@ class AcGamePlayground{
     constructor(root){
         this.root = root;
         this.$playground = $(`<div class="ac-game-playground"></div>`);
+
         this.hide();
         this.root.$ac_game.append(this.$playground);
         this.start();
@@ -37,6 +38,7 @@ class AcGamePlayground{
         }
     }
 
+
     resize() {
         this.width = this.$playground.width();
         this.height = this.$playground.height();
@@ -66,10 +68,10 @@ class AcGamePlayground{
         this.player_count = 0;
         this.resize();
         this.players = [];
-        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.32, "me", this.root.settings.username, this.root.settings.photo));
+        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
         if (mode === "single mode") {
             for (let i = 0; i < 5; i ++ ) {
-                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  this.get_random_color(), 0.32, "robot"));
+                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  this.get_random_color(), 0.4, "robot"));
             }
         } else if (mode === "multi mode") {
             this.chat_field = new ChatField(this);

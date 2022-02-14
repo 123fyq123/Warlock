@@ -22,9 +22,9 @@ class Player extends AcGameObject{
         this.friction = 0.9;
         this.cur_skill = null;
         this.fireballs = [];
-        this.time_id1 = null;
-        this.time_id2 = null;
-
+        this.time_id1 = null; // 出现3秒提示字冷却时间
+        this.time_id2 = null; // 跳转会主菜单的冷却时间
+        this.return_time = null; // 浮现返回按钮冷却时间
         if (this.character !== "robot") {
             this.img = new Image();
             this.img.src = this.photo;
@@ -148,7 +148,7 @@ class Player extends AcGameObject{
         let fireball = new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);
         this.fireballs.push(fireball); // 由于火球会消失，这里存在一个数组里
 
-        this.fireball_coldtime = 1.5; // 重置技能cd
+        this.fireball_coldtime = 0.1; // 重置技能cd
 
         return fireball;
         }
@@ -194,7 +194,11 @@ class Player extends AcGameObject{
             if (this.character === "me") {
                 this.playground.notice_board.write("你输了");
                 this.playground.score_board.lose();
-                this.turnto_menu();
+                if (this.playground.mode === "single mode") {
+                    this.turnto_menu();
+                } else if (this.playground.mode === "multi mode") {
+                    this.show_return();
+                }
             }
             return false;
         }
@@ -202,6 +206,16 @@ class Player extends AcGameObject{
         this.damage_y = Math.sin(angle);
         this.damage_speed = damage * 100;
         this.speed *= 0.8;
+    }
+
+    show_return() {
+        let outer = this;
+        if (this.return_time) clearTimeout(this.return_time);
+
+        this.return_time = setTimeout(function(){
+            outer.playground.score_board.$return_button.fadeIn();
+        },3000);
+
     }
 
     turnto_menu() {
@@ -220,13 +234,18 @@ class Player extends AcGameObject{
             outer.time_id2 = null;
         },6000);
     }
+
     check_success() {
         if (this.playground.player_count === 1)
         {
             if (this.playground.players[0].character === "me") {
                 this.playground.notice_board.write("你赢了");
                 this.playground.score_board.win();
-                this.turnto_menu();
+                if (this.playground.mode === "single mode") {
+                    this.turnto_menu();
+                } else if (this.playground.mode === "multi mode") {
+                    this.show_return();
+                }
                 return true;
             }
         }
