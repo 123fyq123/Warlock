@@ -277,3 +277,89 @@
     letter-spacing: 0.5vw;
     cursor: pointer;
 }
+
+.ac-game-choose-mode {
+    width: 100%;
+    height: 100%;
+    user-select: none;
+    background-color: black;
+}
+
+.ac-game-choose-mode-top-left-triangle {
+    position: absolute;
+    top: 20%;
+    left: 25%;
+    width: 0;
+    height: 0;
+    border:60px solid;
+    border-color: transparent red transparent transparent;
+    cursor: pointer;
+}
+
+.ac-game-choose-mode-top-right-triangle:hover{
+    transform: scale(1.2);
+    transition: 100ms;
+}
+.ac-game-choose-mode-top-right-triangle {
+    position: absolute;
+    top: 20%;
+    right: 25%;
+    width: 0;
+    height: 0;
+    border:60px solid;
+    border-color: transparent transparent transparent red;
+    cursor: pointer;
+}
+
+.ac-game-choose-mode-top-left-triangle:hover{
+    transform: scale(1.2);
+    transition: 100ms;
+}
+
+.ac-game-choose-mode-top-mode {
+    position: absolute;
+    top: 20%;
+    left: 41%;
+    color: white;
+    font-size: 11vh;
+    width: 18vw;
+    text-align: center;
+}
+
+.ac-game-choose-mode-middle-board {
+    height: 30vh;
+    width: 60vw;
+    position: absolute;
+    top: 40%;
+    left: 20%;
+    background-image: url("/static/image/menu/background.gif");
+    border:1px solid pink;
+    border-radius: 10px;
+}
+
+.ac-game-choose-mode-middle-board-explain {
+    color: white;
+    font-size: 6vh;
+    text-align: center;
+    margin-top: 10%;
+}
+
+.ac-game-choose-mode-bottom-submit {
+    color: white;
+    font-size: 4vh;
+    height: 6vh;
+    width: 18vw;
+    text-align: center;
+    border: 1px solid pink;
+    border-radius: 10px;
+    position: absolute;
+    top: 80%;
+    left: 40%;
+    background-color: grey;
+    cursor: pointer;
+}
+
+.ac-game-choose-mode-bottom-submit:hover {
+    transform: scale(1.2);
+    transition: 100ms;
+}

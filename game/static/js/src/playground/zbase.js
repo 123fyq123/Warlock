@@ -68,9 +68,11 @@ class AcGamePlayground{
         this.player_count = 0;
         this.resize();
         this.players = [];
+        let num = [4, 6, 8];
+        let num_id = this.root.choose_mode.cur_mode;
         this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
         if (mode === "single mode") {
-            for (let i = 0; i < 5; i ++ ) {
+            for (let i = 0; i < num[num_id]; i ++ ) {
                 this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  this.get_random_color(), 0.4, "robot"));
             }
         } else if (mode === "multi mode") {
