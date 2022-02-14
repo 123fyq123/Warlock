@@ -148,7 +148,7 @@ class Player extends AcGameObject{
         let fireball = new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);
         this.fireballs.push(fireball); // 由于火球会消失，这里存在一个数组里
 
-        this.fireball_coldtime = 0.1; // 重置技能cd
+        this.fireball_coldtime = 1.5; // 重置技能cd
 
         return fireball;
         }

@@ -517,7 +517,7 @@ class Player extends AcGameObject{
         let fireball = new FireBall(this.playground, this, x, y, radius, vx, vy, color, speed, move_length, 0.01);
         this.fireballs.push(fireball); // 由于火球会消失，这里存在一个数组里
 
-        this.fireball_coldtime = 0.1; // 重置技能cd
+        this.fireball_coldtime = 1.5; // 重置技能cd
 
         return fireball;
         }
@@ -786,6 +786,7 @@ class ScoreBoard extends AcGameObject {
         this.lose_img = new Image();
         this.lose_img.src = "https://cdn.acwing.com/media/article/image/2021/12/17/1_9254b5f95e-lose.png";
 
+        this.first_return = false;
         this.$return_button = $(`
 <div class="ac-game-score-board-return">
     返回
@@ -817,6 +818,12 @@ class ScoreBoard extends AcGameObject {
         this.$return_button.click(function(){
             outer.playground.hide();
             outer.playground.root.menu.show();
+            if (outer.playground.mode === "multi mode" && outer.first_return === false) {
+                let username = outer.playground.root.settings.username;
+                outer.playground.mps.send_return(username);
+                outer.first_return = true;
+                return ;
+            }
         });
     }
 
@@ -960,6 +967,8 @@ class MultiPlayerSocket {
                 outer.receive_blink(uuid, data.tx, data.ty);
             } else if(event === "message") {
                 outer.receive_message(uuid, data.username, data.text)
+            } else if(event === "return") {
+                outer.receive_return(uuid, data.username);
             }
         };
     }
@@ -1093,6 +1102,20 @@ class MultiPlayerSocket {
 
     receive_message(uuid, username, text) {
             this.playground.chat_field.add_message(username, text);
+    }
+
+    send_return(username) {
+        let outer = this;
+        this.ws.send(JSON.stringify({
+            'event': "return",
+            'uuid': outer.uuid,
+            'username': username,
+        }));
+    }
+
+    receive_return(uuid, username) {
+        let text = `${username} 已经离开`;
+        this.playground.chat_field.add_message(username, text);
     }
 }
 class AcGamePlayground{

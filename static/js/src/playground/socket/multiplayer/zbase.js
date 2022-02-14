@@ -32,6 +32,8 @@ class MultiPlayerSocket {
                 outer.receive_blink(uuid, data.tx, data.ty);
             } else if(event === "message") {
                 outer.receive_message(uuid, data.username, data.text)
+            } else if(event === "return") {
+                outer.receive_return(uuid, data.username);
             }
         };
     }
@@ -165,5 +167,19 @@ class MultiPlayerSocket {
 
     receive_message(uuid, username, text) {
             this.playground.chat_field.add_message(username, text);
+    }
+
+    send_return(username) {
+        let outer = this;
+        this.ws.send(JSON.stringify({
+            'event': "return",
+            'uuid': outer.uuid,
+            'username': username,
+        }));
+    }
+
+    receive_return(uuid, username) {
+        let text = `${username} 已经离开`;
+        this.playground.chat_field.add_message(username, text);
     }
 }

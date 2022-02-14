@@ -125,6 +125,17 @@ class MultiPlayer(AsyncWebsocketConsumer):
             }
         )
 
+    async def return_message(self, data):
+        await self.channel_layer.group_send(
+            self.room_name,
+            {
+                'type': "group_send_event",
+                'event': "return",
+                'uuid': data['uuid'],
+                'username': data['username'],
+            }
+        )
+
     async def receive(self, text_data):
         data = json.loads(text_data)
         event = data['event']
@@ -140,3 +151,5 @@ class MultiPlayer(AsyncWebsocketConsumer):
             await self.blink(data)
         elif event == "message":
             await self.message(data)
+        elif event == "return":
+            await self.return_message(data)
