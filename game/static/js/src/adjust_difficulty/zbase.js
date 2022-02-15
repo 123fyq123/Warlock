@@ -19,6 +19,7 @@ class AcGameChooseMode {
     <br/>
     <div class="ac-game-choose-mode-bottom">
         <div class="ac-game-choose-mode-bottom-submit">确认</div>
+        <div class="ac-game-choose-mode-bottom-return">返回</div>
     </div>
 </div>
 `);
@@ -33,7 +34,7 @@ class AcGameChooseMode {
         this.$confirm_submit = this.$choose_mode.find('.ac-game-choose-mode-bottom-submit');
         this.$diff_mode = this.$choose_mode.find('.ac-game-choose-mode-top-mode');
         this.$diff_explain = this.$choose_mode.find('.ac-game-choose-mode-middle-board-explain');
-
+        this.$diff_return = this.$choose_mode.find('.ac-game-choose-mode-bottom-return');
         this.$choose_mode.hide();
         this.root.$ac_game.append(this.$choose_mode);
         this.start();
@@ -62,6 +63,11 @@ class AcGameChooseMode {
             outer.hide();
             outer.root.playground.game_mode = outer.mode_names[outer.cur_mode];
             outer.root.playground.show("single mode");
+        });
+
+        this.$diff_return.click(function(){
+            outer.hide();
+            outer.root.menu.show();
         });
     }
 

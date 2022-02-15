@@ -235,7 +235,7 @@
     font-size: 3.5vh;
     font-weight: bold;
     color: white;
-    height: 47vh;
+    height: 55vh;
     width: 30vw;
     text-align: center;
     background-color: rgba(39,21,28, 0.6);
@@ -354,7 +354,7 @@
     border-radius: 10px;
     position: absolute;
     top: 80%;
-    left: 40%;
+    left: 30%;
     background-color: grey;
     cursor: pointer;
 }
@@ -362,4 +362,19 @@
 .ac-game-choose-mode-bottom-submit:hover {
     transform: scale(1.2);
     transition: 100ms;
+}
+
+.ac-game-choose-mode-bottom-return {
+    color: white;
+    font-size: 4vh;
+    height: 6vh;
+    width: 18vw;
+    text-align: center;
+    border: 1px solid pink;
+    border-radius: 10px;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    background-color: grey;
+    cursor: pointer;
 }

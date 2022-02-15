@@ -14,6 +14,7 @@ class AcGameDesc {
             <p>f+左键：闪现</p>
             <p>enter：多人模式下局内聊天</p>
             <p>Esc：关闭聊天框</p>
+            <p>前3秒无法使用技能</p>
         </div>
         <br/>
         <div class="ac-game-desc-field-confirm">
