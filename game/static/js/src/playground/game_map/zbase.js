@@ -8,6 +8,8 @@ class GameMap extends AcGameObject {
         this.ctx.canvas.height = this.playground.height;
         this.playground.$playground.append(this.$canvas);
 
+        this.back_img = new Image();
+        this.back_img.src = "https://app1372.acapp.acwing.com.cn/static/image/menu/single_mode.jpg";
     }
 
     start() {
@@ -17,15 +19,14 @@ class GameMap extends AcGameObject {
     resize() {
         this.ctx.canvas.width = this.playground.width;
         this.ctx.canvas.height = this.playground.height;
-        this.ctx.fillStyle = "rgba(0, 0, 0, 1)";
-        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
     update(){
         this.render();
     }
 
     render(){
-        this.ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 }

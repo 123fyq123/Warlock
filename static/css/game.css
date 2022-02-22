@@ -179,6 +179,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background: url("https://app1372.acapp.acwing.com.cn/static/image/menu/single_mode.jpg");
 }
 
 .ac-game-chat-field-history {
@@ -298,7 +299,8 @@ body {
     width: 100%;
     height: 100%;
     user-select: none;
-    background-color: black;
+    background-image: url("https://app1372.acapp.acwing.com.cn/static/image/menu/background.gif");
+    background-size: 100% 100%;
 }
 
 .ac-game-choose-mode-top-left-triangle {
@@ -348,8 +350,8 @@ body {
     position: absolute;
     top: 40%;
     left: 20%;
-    background-image: url("/static/image/menu/background.gif");
-    border:1px solid pink;
+    background-color: grey;
+    border:3px solid white;
     border-radius: 10px;
 }
 
@@ -371,7 +373,7 @@ body {
     position: absolute;
     top: 80%;
     left: 30%;
-    background-color: grey;
+    background-color: red;
 }
 
 .ac-game-choose-mode-bottom-submit:hover {
@@ -391,10 +393,94 @@ body {
     position: absolute;
     top: 80%;
     left: 50%;
-    background-color: grey;
+    background-color: red;
 }
 
 .ac-game-choose-mode-bottom-return:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    transform: scale(1.2);
+    transition: 100ms;
+}
+
+
+.ac-game-choose-skin {
+    height: 100%;
+    width: 100%;
+    background-image: url("https://app1372.acapp.acwing.com.cn/static/image/menu/background.gif");
+    background-size: 100% 100%;
+    user-select: none;
+}
+
+.ac-game-choose-skin-top-people-photo {
+    display: inline;
+    width: 15vw;
+    height: 15vw;
+    position: absolute;
+    top: 15vh;
+    right: 43vw;
+    border-radius: 10vw;
+    border: 1px solid pink;
+}
+
+.ac-game-choose-skin-middle-people {
+    position: absolute;
+    top: 44vh;
+    left: 40vw;
+    color: white;
+    font-size: 6vh;
+    width: 18vw;
+    text-align: center;
+}
+
+.ac-game-choose-skin-middle-explain {
+    border: 3px solid white;
+    border-radius: 10px;
+    position: absolute;
+    width: 45vw;
+    height: 28vh;
+    top: 60vh;
+    left: 28vw;
+    text-align: center;
+    color: white;
+    background-color: grey;
+    font-size: 4vh;
+}
+
+.ac-game-choose-skin-bottom-submit-confirm {
+    color: white;
+    font-size: 4vh;
+    height: 6vh;
+    width: 18vw;
+    text-align: center;
+    border: 1px solid pink;
+    border-radius: 10px;
+    position: absolute;
+    top: 90vh;
+    left: 30%;
+    background-color: red;
+}
+
+.ac-game-choose-skin-bottom-submit-confirm:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    transform: scale(1.2);
+    transition: 100ms;
+}
+
+.ac-game-choose-skin-bottom-submit-return {
+    color: white;
+    font-size: 4vh;
+    height: 6vh;
+    width: 18vw;
+    text-align: center;
+    border: 1px solid pink;
+    border-radius: 10px;
+    position: absolute;
+    top: 90vh;
+    left: 50vw;
+    background-color: red;
+}
+
+.ac-game-choose-skin-bottom-submit-return:hover {
     cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
     transform: scale(1.2);
     transition: 100ms;

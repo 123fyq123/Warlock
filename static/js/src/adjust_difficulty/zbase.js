@@ -62,7 +62,7 @@ class AcGameChooseMode {
         this.$confirm_submit.click(function(){
             outer.hide();
             outer.root.playground.game_mode = outer.mode_names[outer.cur_mode];
-            outer.root.playground.show("single mode");
+            outer.root.choose_skin.show();
         });
 
         this.$diff_return.click(function(){

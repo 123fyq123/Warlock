@@ -62,7 +62,7 @@ class AcGameChooseMode {
         this.$confirm_submit.click(function(){
             outer.hide();
             outer.root.playground.game_mode = outer.mode_names[outer.cur_mode];
-            outer.root.playground.show("single mode");
+            outer.root.choose_skin.show();
         });
 
         this.$diff_return.click(function(){
@@ -84,6 +84,118 @@ class AcGameChooseMode {
         this.$choose_mode.show();
     }
 
+}
+class AcGameChooseSkin {
+    constructor(root) {
+        this.root = root;
+        this.$choose_skin = $(`
+<div class="ac-game-choose-skin">
+    <div class="ac-game-choose-skin-top">
+        <div class="ac-game-choose-mode-top-left-triangle"></div>
+        <img class="ac-game-choose-skin-top-people-photo" src="https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/lbxx/lbxx.jpg"/>
+        <div class="ac-game-choose-mode-top-right-triangle"></div>
+    </div>
+    <br/>
+    <div class="ac-game-choose-skin-middle">
+        <div class="ac-game-choose-skin-middle-people">
+            野原新之助
+        </div>
+        <br/>
+        <div class="ac-game-choose-skin-middle-explain">
+            住在春日部郊区某住宅区一栋二层小平房。喜欢漂亮的大姐姐，深爱着娜娜子姐姐，喜欢做屁股外星人的动作。
+        </div>
+    </div>
+    <br/>
+    <div class="ac-game-choose-skin-bottom">
+        <div class="ac-game-choose-skin-bottom-submit-confirm">确认</div>
+        <div class="ac-game-choose-skin-bottom-submit-return">返回</div>
+    </div>
+</div>
+`)
+
+    this.$choose_skin.hide();
+    this.$right_triangle = this.$choose_skin.find('.ac-game-choose-mode-top-right-triangle');
+    this.$left_triangle = this.$choose_skin.find('.ac-game-choose-mode-top-left-triangle');
+    this.$choose_people = this.$choose_skin.find('.ac-game-choose-skin-middle-people');
+    this.$people_explain = this.$choose_skin.find('.ac-game-choose-skin-middle-explain');
+    this.$people_confirm = this.$choose_skin.find('.ac-game-choose-skin-bottom-submit-confirm');
+    this.$people_return = this.$choose_skin.find('.ac-game-choose-skin-bottom-submit-return');
+    //this.$skin_img = this.$choose_skin.find('.ac-game-choose-skin-top-people-photo');
+
+    this.root.$ac_game.append(this.$choose_skin);
+
+
+    this.photo_url = [
+"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/lbxx.jpg",
+"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/dog.jpg",
+"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/fj.jpg",
+"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/zn.jpg",
+"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/mather.jpg",
+"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/father.jpg",
+]
+
+    this.people_name = ["野原新之助", "小白", "风间彻", "佐藤正男", "野原美伢", "野原广志"];
+    this.people_explain = [
+"住在春日部郊区某住宅区一栋二层小平房。喜欢漂亮的大姐姐，深爱着娜娜子姐姐，喜欢做屁股外星人的动作。",
+"被抛弃的弃狗，后来被小新捡回家，取名为小白，后来又被小新称作野原小白。",
+"向日葵班学生。家境优越，喜欢装自己成熟，有点装腔作势，自尊心很强。幼儿园外上各种各样的补习班。小新和他经常碰到，他们两个总是吵架，但很快就会和好，是很好的朋友。",
+"向日葵班学生，爱哭。在朋友之间，脸的形式很像“饭团”。喜欢小爱。",
+"年龄：35岁。生于秋田，是一个上班族，脚很臭，有着三十二年房贷……",
+"家庭主妇一枚，野原广志的妻子，小新、小葵的母亲。脾气暴躁，喜欢帅哥。",
+]
+
+    this.cur_skin = 0;
+    this.total_skin = 6;
+
+    this.start();
+
+
+    }
+
+    start(){
+        this.add_listening_events();
+    }
+
+    add_listening_events() {
+        let outer = this;
+        this.$left_triangle.click(function(){
+
+            outer.cur_skin -- ;
+            if (outer.cur_skin < 0) outer.cur_skin = outer.total_skin - 1;
+            outer.change_skin();
+        });
+
+        this.$right_triangle.click(function(){
+            outer.cur_skin ++ ;
+            if (outer.cur_skin >= outer.total_skin) outer.cur_skin = 0;
+            outer.change_skin();
+        });
+
+        this.$people_confirm.click(function(){
+            outer.hide();
+            outer.root.playground.show("single mode",outer.photo_url[outer.cur_skin]);
+        });
+
+        this.$people_return.click(function(){
+            outer.hide();
+            outer.root.menu.show();
+        });
+    }
+
+    change_skin() {
+        let img = document.getElementsByClassName("ac-game-choose-skin-top-people-photo")[0];
+        img.src = this.photo_url[this.cur_skin];
+        this.$choose_people.html(this.people_name[this.cur_skin]);
+        this.$people_explain.html(this.people_explain[this.cur_skin]); // $().html()方法
+    }
+
+    show() {
+        this.$choose_skin.show();
+    }
+
+    hide() {
+        this.$choose_skin.hide();
+    }
 }
 class AcGameDesc {
     constructor(root) {
@@ -363,6 +475,8 @@ class GameMap extends AcGameObject {
         this.ctx.canvas.height = this.playground.height;
         this.playground.$playground.append(this.$canvas);
 
+        this.back_img = new Image();
+        this.back_img.src = "https://app1372.acapp.acwing.com.cn/static/image/menu/single_mode.jpg";
     }
 
     start() {
@@ -372,16 +486,15 @@ class GameMap extends AcGameObject {
     resize() {
         this.ctx.canvas.width = this.playground.width;
         this.ctx.canvas.height = this.playground.height;
-        this.ctx.fillStyle = "rgba(0, 0, 0, 1)";
-        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
     update(){
         this.render();
     }
 
     render(){
-        this.ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
-        this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
+        this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+        this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
 }
 class NoticeBoard extends AcGameObject {
@@ -482,10 +595,8 @@ class Player extends AcGameObject{
         this.time_id1 = null; // 出现3秒提示字冷却时间
         this.time_id2 = null; // 跳转会主菜单的冷却时间
         this.return_time = null; // 浮现返回按钮冷却时间
-        if (this.character !== "robot") {
-            this.img = new Image();
-            this.img.src = this.photo;
-        }
+        this.img = new Image();
+        this.img.src = this.photo;
 
         if (this.character === "me") {
             this.fireball_coldtime = 1.5; // 单位 秒
@@ -502,7 +613,7 @@ class Player extends AcGameObject{
         this.playground.player_count ++;
         this.playground.notice_board.write("已就绪：" + this.playground.player_count + "人");
 
-        if (this.playground.player_count >= 3) {
+        if (this.playground.player_count >= 2) {
             this.playground.state = "fighting";
             this.playground.notice_board.write("Fighting!");
         }
@@ -541,7 +652,7 @@ class Player extends AcGameObject{
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
                 if (outer.cur_skill === "fireball") {
                     if (outer.fireball_coldtime > outer.eps)
-                    return false;
+                        return false;
 
                     let fireball = outer.shoot_fireball(tx, ty);
 
@@ -608,7 +719,7 @@ class Player extends AcGameObject{
         this.fireball_coldtime = 1.5; // 重置技能cd
 
         return fireball;
-        }
+    }
 
     destroy_fireball(uuid) {
         for (let i = 0; i < this.fireballs.length; i ++ ) {
@@ -616,7 +727,7 @@ class Player extends AcGameObject{
             if (fireball.uuid === uuid) {
                 fireball.destroy();
                 break;
-        }
+            }
         }
     }
 
@@ -639,7 +750,7 @@ class Player extends AcGameObject{
             let angle = Math.PI * 2 * Math.random();
             let vx = Math.cos(angle);
             let vy = Math.sin(angle);
-            let color = this.color;
+            let color = "white";
             let speed = this.speed * 10;
             let move_length = this.radius * Math.random() * 5;
             new Particle(this.playground, x, y, radius, vx, vy, color, speed, move_length);
@@ -765,48 +876,40 @@ class Player extends AcGameObject{
             this.damage_speed *= this.friction;
         } else {
 
-        if(this.move_length < this.eps) {
-            this.move_length = 0;
-            this.vx = this.vy = 0;
-            if(this.character === "robot") {
-                let tx = Math.random() * this.playground.width / this.playground.scale;
-                let ty = Math.random() * this.playground.height / this.playground.scale;
-                this.move_to(tx, ty);
+            if(this.move_length < this.eps) {
+                this.move_length = 0;
+                this.vx = this.vy = 0;
+                if(this.character === "robot") {
+                    let tx = Math.random() * this.playground.width / this.playground.scale;
+                    let ty = Math.random() * this.playground.height / this.playground.scale;
+                    this.move_to(tx, ty);
+                }
+            } else {
+                let moved = Math.min(this.move_length, this.speed * this.timedelta / 1000);
+                this.x += this.vx * moved;
+                this.y += this.vy * moved;
+                this.move_length -= moved;
             }
-        } else {
-            let moved = Math.min(this.move_length, this.speed * this.timedelta / 1000);
-            this.x += this.vx * moved;
-            this.y += this.vy * moved;
-            this.move_length -= moved;
         }
-       }
     }
 
 
     render(){
         let scale = this.playground.scale;
-        if (this.character !== "robot") {
-            this.ctx.save();
-            this.ctx.beginPath();
-            this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
-            this.ctx.stroke();
-            this.ctx.clip();
-            this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale); 
-            this.ctx.restore();
-        }
-        else {
-            this.ctx.beginPath();
-            this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, Math.PI * 2, false);
-            this.ctx.fillStyle = this.color;
-            this.ctx.fill();
-        }
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
+        this.ctx.stroke();
+        this.ctx.clip();
+        this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale); 
+        this.ctx.restore();
 
         if (this.character === "me" && this.playground.state === "fighting") {
             this.render_skill_coldtime();
         }
     }
 
-    render_skill_coldtime() { // 渲染技能冷却时间i
+    render_skill_coldtime() { // 渲染技能冷却时间
         let scale = this.playground.scale;
         let x = 1.5, y = 0.9, r = 0.04;
         this.ctx.save();
@@ -1260,7 +1363,7 @@ class AcGamePlayground{
         }
     }
 
-    show(mode){ // 打开playground
+    show(mode, photo){ // 打开playground
         let outer = this;
         this.$playground.show();
 
@@ -1278,10 +1381,15 @@ class AcGamePlayground{
         this.players = [];
         let num = [4, 6, 8];
         let num_id = this.root.choose_mode.cur_mode;
-        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
+        if(mode === "multi mode") {
+            this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
+        } else if(mode === "single mode") {
+             this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, photo));
+        }
         if (mode === "single mode") {
             for (let i = 0; i < num[num_id]; i ++ ) {
-                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  this.get_random_color(), 0.4, "robot"));
+                let robot_photo = "https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/yz.jpg";
+                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  "white", 0.4, "robot", null ,robot_photo));
             }
         } else if (mode === "multi mode") {
             this.chat_field = new ChatField(this);
@@ -1615,6 +1723,7 @@ export class AcGame{
         this.desc = new AcGameDesc(this);
         this.menu = new AcGameMenu(this);
         this.choose_mode = new AcGameChooseMode(this);
+        this.choose_skin = new AcGameChooseSkin(this);
         this.playground = new AcGamePlayground(this);
         this.start();
     }

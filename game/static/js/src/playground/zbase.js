@@ -52,7 +52,7 @@ class AcGamePlayground{
         }
     }
 
-    show(mode){ // 打开playground
+    show(mode, photo){ // 打开playground
         let outer = this;
         this.$playground.show();
 
@@ -70,10 +70,15 @@ class AcGamePlayground{
         this.players = [];
         let num = [4, 6, 8];
         let num_id = this.root.choose_mode.cur_mode;
-        this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
+        if(mode === "multi mode") {
+            this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
+        } else if(mode === "single mode") {
+             this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, photo));
+        }
         if (mode === "single mode") {
             for (let i = 0; i < num[num_id]; i ++ ) {
-                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  this.get_random_color(), 0.4, "robot"));
+                let robot_photo = "https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/yz.jpg";
+                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  "white", 0.4, "robot", null ,robot_photo));
             }
         } else if (mode === "multi mode") {
             this.chat_field = new ChatField(this);

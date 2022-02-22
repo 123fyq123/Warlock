@@ -25,10 +25,8 @@ class Player extends AcGameObject{
         this.time_id1 = null; // 出现3秒提示字冷却时间
         this.time_id2 = null; // 跳转会主菜单的冷却时间
         this.return_time = null; // 浮现返回按钮冷却时间
-        if (this.character !== "robot") {
-            this.img = new Image();
-            this.img.src = this.photo;
-        }
+        this.img = new Image();
+        this.img.src = this.photo;
 
         if (this.character === "me") {
             this.fireball_coldtime = 1.5; // 单位 秒
@@ -45,7 +43,7 @@ class Player extends AcGameObject{
         this.playground.player_count ++;
         this.playground.notice_board.write("已就绪：" + this.playground.player_count + "人");
 
-        if (this.playground.player_count >= 3) {
+        if (this.playground.player_count >= 2) {
             this.playground.state = "fighting";
             this.playground.notice_board.write("Fighting!");
         }
@@ -84,7 +82,7 @@ class Player extends AcGameObject{
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
                 if (outer.cur_skill === "fireball") {
                     if (outer.fireball_coldtime > outer.eps)
-                    return false;
+                        return false;
 
                     let fireball = outer.shoot_fireball(tx, ty);
 
@@ -151,7 +149,7 @@ class Player extends AcGameObject{
         this.fireball_coldtime = 1.5; // 重置技能cd
 
         return fireball;
-        }
+    }
 
     destroy_fireball(uuid) {
         for (let i = 0; i < this.fireballs.length; i ++ ) {
@@ -159,7 +157,7 @@ class Player extends AcGameObject{
             if (fireball.uuid === uuid) {
                 fireball.destroy();
                 break;
-        }
+            }
         }
     }
 
@@ -182,7 +180,7 @@ class Player extends AcGameObject{
             let angle = Math.PI * 2 * Math.random();
             let vx = Math.cos(angle);
             let vy = Math.sin(angle);
-            let color = this.color;
+            let color = "white";
             let speed = this.speed * 10;
             let move_length = this.radius * Math.random() * 5;
             new Particle(this.playground, x, y, radius, vx, vy, color, speed, move_length);
@@ -308,48 +306,40 @@ class Player extends AcGameObject{
             this.damage_speed *= this.friction;
         } else {
 
-        if(this.move_length < this.eps) {
-            this.move_length = 0;
-            this.vx = this.vy = 0;
-            if(this.character === "robot") {
-                let tx = Math.random() * this.playground.width / this.playground.scale;
-                let ty = Math.random() * this.playground.height / this.playground.scale;
-                this.move_to(tx, ty);
+            if(this.move_length < this.eps) {
+                this.move_length = 0;
+                this.vx = this.vy = 0;
+                if(this.character === "robot") {
+                    let tx = Math.random() * this.playground.width / this.playground.scale;
+                    let ty = Math.random() * this.playground.height / this.playground.scale;
+                    this.move_to(tx, ty);
+                }
+            } else {
+                let moved = Math.min(this.move_length, this.speed * this.timedelta / 1000);
+                this.x += this.vx * moved;
+                this.y += this.vy * moved;
+                this.move_length -= moved;
             }
-        } else {
-            let moved = Math.min(this.move_length, this.speed * this.timedelta / 1000);
-            this.x += this.vx * moved;
-            this.y += this.vy * moved;
-            this.move_length -= moved;
         }
-       }
     }
 
 
     render(){
         let scale = this.playground.scale;
-        if (this.character !== "robot") {
-            this.ctx.save();
-            this.ctx.beginPath();
-            this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
-            this.ctx.stroke();
-            this.ctx.clip();
-            this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale); 
-            this.ctx.restore();
-        }
-        else {
-            this.ctx.beginPath();
-            this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, Math.PI * 2, false);
-            this.ctx.fillStyle = this.color;
-            this.ctx.fill();
-        }
+        this.ctx.save();
+        this.ctx.beginPath();
+        this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
+        this.ctx.stroke();
+        this.ctx.clip();
+        this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale); 
+        this.ctx.restore();
 
         if (this.character === "me" && this.playground.state === "fighting") {
             this.render_skill_coldtime();
         }
     }
 
-    render_skill_coldtime() { // 渲染技能冷却时间i
+    render_skill_coldtime() { // 渲染技能冷却时间
         let scale = this.playground.scale;
         let x = 1.5, y = 0.9, r = 0.04;
         this.ctx.save();
