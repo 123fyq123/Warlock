@@ -3,7 +3,7 @@ class ChatField {
         this.playground = playground;
 
         this.$history = $(`<div class="ac-game-chat-field-history">历史记录</div>`);
-        this.$input = $(`<input type="text" class="ac-game-chat-field-input">`);
+        this.$input = $(`<input type="text" class="ac-game-chat-field-input" placeHolder="Esc键退出">`);
 
         this.$history.hide();
         this.$input.hide();
@@ -21,7 +21,7 @@ class ChatField {
 
     add_listening_events() {
         let outer = this;
-
+        let default_val = "Esc键退出";
         this.$input.keydown(function(e) {
             if (e.which === 27) { // Esc
                 outer.hide_input();
@@ -33,10 +33,11 @@ class ChatField {
                     outer.add_message(username, text);
                     outer.playground.mps.send_message(username, text);
                 }
-                return false;
             }
         });
+
     }
+
 
     render_message(message) {
         return $(`<div>${message}</div>`); // 将信息封装成html对象

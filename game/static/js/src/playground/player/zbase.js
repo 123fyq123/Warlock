@@ -291,10 +291,11 @@ class Player extends AcGameObject{
     }
 
     update_move() { // 更新玩家移动
-        if(this.character === "robot" && this.spent_time > 3 && Math.random() < 1/120.0) {
+        if(this.character === "robot" && this.spent_time > 3 && Math.random() < 1/100.0) {
             let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
-            let tx = player.x + player.speed * this.vx * this.timedelta / 1000 * 0.3;
-            let ty = player.y + player.speed * this.vy * this.timedelta / 1000 * 0.3;
+            if (player.uuid === this.uuid) return false;
+            let tx = player.x + player.speed * this.vx * 0.3;
+            let ty = player.y + player.speed * this.vy * 0.3;
 
             this.shoot_fireball(tx, ty);
         }
