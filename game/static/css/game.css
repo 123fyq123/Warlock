@@ -1,5 +1,5 @@
 body {
-    cursor: url(https://app1372.acapp.acwing.com.cn/static/image/menu/arr112.png), auto;
+    cursor: url(https://app1372.acapp.acwing.com.cn/static/image/menu/yidong.png), auto;
 }
 
 .ac-game-settings {
@@ -62,7 +62,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    cursor: url("/static/image/menu/sb.ani"), auto;
+    cursor: url("/static/image/menu/text.png"), auto;
 }
 
 .ac-game-settings-item > button {
@@ -78,7 +78,7 @@ body {
 }
 
 .ac-game-settings-item > button:hover {
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
 }
 
 .ac-game-settings-error-message {
@@ -99,7 +99,7 @@ body {
 }
 
 .ac-game-settings-option:hover {
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
 }
 
 .ac-game-settings-acwing > img {
@@ -112,7 +112,7 @@ body {
 }
 
 .ac-game-settings-acwing > img:hover {
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
 }
 
 .ac-game-settings-acwing > div {
@@ -162,7 +162,7 @@ body {
 }
 
 .ac-game-menu-field-item:hover{
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform:scale(1.2);
     transition: 100ms;
 }
@@ -275,7 +275,7 @@ body {
 }
 
 .ac-game-desc-field-confirm:hover{
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform:scale(1.2);
     transition: 100ms;
 }
@@ -315,7 +315,7 @@ body {
 }
 
 .ac-game-choose-mode-top-right-triangle:hover{
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform: scale(1.2);
     transition: 100ms;
 }
@@ -330,7 +330,7 @@ body {
 }
 
 .ac-game-choose-mode-top-left-triangle:hover{
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform: scale(1.2);
     transition: 100ms;
 }
@@ -378,7 +378,7 @@ body {
 }
 
 .ac-game-choose-mode-bottom-submit:hover {
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform: scale(1.2);
     transition: 100ms;
 }
@@ -398,7 +398,7 @@ body {
 }
 
 .ac-game-choose-mode-bottom-return:hover {
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform: scale(1.2);
     transition: 100ms;
 }
@@ -462,7 +462,7 @@ body {
 }
 
 .ac-game-choose-skin-bottom-submit-confirm:hover {
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform: scale(1.2);
     transition: 100ms;
 }
@@ -482,7 +482,188 @@ body {
 }
 
 .ac-game-choose-skin-bottom-submit-return:hover {
-    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/arr107.png"), auto;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
     transform: scale(1.2);
     transition: 100ms;
+}
+
+.ac-game-info {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0);
+    background-size: 100% 100%;
+}
+
+.ac-game-info-item {
+    position: absolute;
+    top: 30vh;
+    left: 20vw;
+    width: 60vw;
+    height: 50vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 3px solid pink;
+    border-radius: 10px;
+    user-select: none;
+}
+
+.ac-game-info-item-settings {
+    font-size: 2.4vh;
+    position: relative;
+    left: 1vw;
+    top: 0.5vh;
+}
+.ac-game-info-item-settings:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+
+}
+.ac-game-info-item-account-settings {
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 10px;
+    width: 11vw;
+    height: 6vh;
+    position: absolute;
+    top: 10vh;
+    left: 3.5vw;
+    font-size: 3vh;
+    text-align: center;
+    padding-top: 1.5vh;
+}
+.ac-game-info-item-account-settings:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+}
+
+.ac-game-info-item-explain {
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 10px;
+    height: 6vh;
+    width: 11vw;
+    position: absolute;
+    top: 20vh;
+    left: 3.5vw;
+    font-size: 3vh;
+    padding-top: 1.5vh;
+    text-align: center;
+}
+
+.ac-game-info-item-explain:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+}
+
+.ac-game-info-item-key {
+    background-color: rgba(255, 0, 0, 0.8);
+    border-radius: 10px;
+    height: 6vh;
+    width: 11vw;
+    position: absolute;
+    top: 30vh;
+    left: 3.5vw;
+    font-size: 3vh;
+    text-align: center;
+    padding-top: 1.5vh;
+}
+
+.ac-game-info-item-key:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+}
+
+.ac-game-info-item-back {
+    font-size: 2.5vh;
+    position: absolute;
+    top: 0vh;
+    right: 0vw;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.6);
+    width: 3vw;
+    height: 2.5vh;
+    text-align:center;
+    padding-bottom: 1vh;
+}
+
+
+.ac-game-info-item-back:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+}
+
+.ac-game-info-item-userinfo-photo {
+    position: absolute;
+    top: 5vh;
+    left: 25vw;
+    width: 20vh;
+    height: 20vh;
+    border: 1px solid pink;
+    border-radius: 10px;
+}
+
+.ac-game-info-item-userinfo-username {
+    font-size: 6vh;
+    position: absolute;
+    top: 7vh;
+    left: 40vw;
+    width: 20vw;
+    height: 10vh;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ac-game-info-item-userinfo-changename {
+    font-size: 3vh;
+    color: grey;
+    position: absolute;
+    top: 27vh;
+    left: 27.5vw;
+}
+
+.ac-game-info-item-userinfo-changename:hover {
+    text-decoration: underline;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+}
+
+.ac-game-info-item-userinfo-return {
+    font-size: 3vh;
+    position: absolute;
+    top: 35vh;
+    left: 35vw;
+    color: black;
+}
+
+.ac-game-info-item-userinfo-return:hover {
+    text-decoration: underline;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+}
+
+.ac-game-info-left {
+    background-color: rgba(255, 255, 255, 0);
+    background-size: 100% 100%;
+    width: 18vw;
+    height: 45vh;
+    position: absolute;
+    top: 0vh;
+    left: 1vw;
+    border-right: 1px solid blue;
+}
+
+.ac-game-info-item-userinfo-signature-change {
+    position: absolute;
+    top: 14vh;
+    left: 40vw;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/text.png"), auto;
+    height: 6.3vh;
+    font-size: 6vh;
+    size: 6vw;
+}
+
+#ac-game-info-item-userinfo-input-photo {
+    position: absolute;
+    top: 5vh;
+    left: 25vw;
+    width: 20vh;
+    height: 20vh;
+    border: 1px solid pink;
+    border-radius: 10px;
+    opacity: 0;
+}
+
+#ac-game-info-item-userinfo-input-photo:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
 }

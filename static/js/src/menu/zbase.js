@@ -1,4 +1,4 @@
-class AcGameMenu{
+class AcGameMenu {
     constructor(root) {
         this.root = root;
         this.$menu = $(`
@@ -13,7 +13,7 @@ class AcGameMenu{
         </div>
         <br>
         <div class="ac-game-menu-field-item ac-game-menu-field-item-settings">
-            退出
+            设置
         </div>
         <br>
         <div class="ac-game-menu-field-item ac-game-menu-field-item-explain">
@@ -31,37 +31,39 @@ class AcGameMenu{
         this.start();
     }
 
-    start(){
+    start() {
         this.add_listening_events();
     }
 
-    add_listening_events(){
+    add_listening_events() {
         let outer = this;
-        this.$single_mode.click(function(){
+        this.$single_mode.click(function () {
             outer.hide();
             outer.root.choose_mode.show();
         });
 
-        this.$multi_mode.click(function(){
+        this.$multi_mode.click(function () {
             outer.hide();
             outer.root.playground.show("multi mode");
         });
 
-        this.$settings.click(function(){
-            outer.root.settings.logout_on_remote();
+        this.$settings.click(function () {
+            outer.info = new Info(outer);
+            outer.info.show();
+            //outer.root.settings.logout_on_remote();
         });
 
-        this.$game_explain.click(function(){
+        this.$game_explain.click(function () {
             outer.hide();
             outer.root.desc.show();
         });
     };
 
-    show(){ // 显示menu界面
+    show() { // 显示menu界面
         this.$menu.show();
     }
 
-    hide(){ //关闭menu界面
+    hide() { //关闭menu界面
         this.$menu.hide();
     }
 }
