@@ -50,7 +50,7 @@ class AcGameMenu {
         this.$settings.click(function () {
             outer.info = new Info(outer);
             outer.info.show();
-            //outer.root.settings.logout_on_remote();
+            outer.root.settings.logout_on_remote();
         });
 
         this.$game_explain.click(function () {

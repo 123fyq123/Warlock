@@ -268,7 +268,6 @@ class Info {
         </div>
         <div class="ac-game-info-item-userinfo">
             <img class="ac-game-info-item-userinfo-photo" src="/static/image/playground/choose_skin/lbxx.jpg" />
-            <input type="file" id="ac-game-info-item-userinfo-input-photo" accept="image/gif, image/jpeg, image/png, image/jpg" multiple="multiple">
             <p class="ac-game-info-item-userinfo-username"></p>
             <input class="ac-game-info-item-userinfo-signature-change" type="text" placeholder="输入用户名" size="7"/>
             <div class="ac-game-info-item-userinfo-changename ac-game-info-item-userinfo-changename-fix">编辑用户名</div>
@@ -296,6 +295,7 @@ class Info {
         this.$username.attr("title", this.menu.root.settings.username);
         this.$back_button = this.$information.find('.ac-game-info-item-back');
         this.$img = this.$information.find('.ac-game-info-item-userinfo-photo');
+        //this.$photo_input = this.$information.find('.ac-game-info-item-userinfo-input-photo');
         this.$name_input.hide();
         this.$information.hide();
         this.change_photo();
@@ -316,59 +316,58 @@ class Info {
     }
 
 
-    fix_photo() {
-        let dataBase64 = '';
-        let outer = this;
-        let fileinput = document.getElementById('ac-game-info-item-userinfo-input-photo');
-        fileinput.addEventListener('change', function () {
-            outer.$img.css("backgroundImage", "");
-            if (!fileinput.value) {
-                alert("没有选择文件");
-                return false;
-            }
+    // fix_photo() {
+    //     let dataBase64 = '';
+    //     let outer = this;
+    //     let fileinput = document.getElementById('ac-game-info-item-userinfo-input-photo');
+    //     fileinput.addEventListener('change', function () {
+    //         outer.$img.css("backgroundImage", "");
+    //         if (!fileinput.value) {
+    //             alert("没有选择文件");
+    //             return false;
+    //         }
 
-            let file = fileinput.files[0];
-            let reader = new FileReader();
-            let size = file.size;
-            if (size >= 1 * 1024 * 1024) {
-                alert("文件大于1M！");
-                outer.$img.attr('src', outer.menu.root.settings.photo);
-                return false;
-            }
+    //         let file = fileinput.files[0];
+    //         let reader = new FileReader();
+    //         let size = file.size;
+    //         if (size >= 1 * 1024 * 1024) {
+    //             alert("文件大于1M！");
+    //             outer.$img.attr('src', outer.menu.root.settings.photo);
+    //             return false;
+    //         }
 
-            if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
-                alert("图片格式错误！");
-                return false;
-            }
-            reader.onload = function (e) { // 文件加载完后执行
-                dataBase64 = e.target.result;
-                outer.$img.attr("src", dataBase64);
-                outer.change_info_on_remote();
-            };
-            reader.readAsDataURL(file); // 变成URL
-        });
-    }
+    //         if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
+    //             alert("图片格式错误！");
+    //             return false;
+    //         }
+    //         reader.onload = function (e) { // 文件加载完后执行
+    //             dataBase64 = e.target.result;
+    //             outer.$img.attr("src", dataBase64);
+    //             outer.change_info_on_remote();
+    //         };
+    //         reader.readAsDataURL(file); // 变成URL
+    //     });
+    // }
 
     change_info_on_remote() {
         let outer = this;
         let oldusername = this.menu.root.settings.username;
         let newusername = this.$name_input.val();
-        let photo = this.$img.attr('src');
+        //let photo = this.$img.attr('src');
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/change",
+            url: "https://app1372.acapp.acwing.com.cn/settings/change_info",
             type: "GET",
             data: {
                 oldusername: oldusername,
                 newusername: newusername,
-                password: outer.menu.root.settings.password,
-                photo: photo,
             },
             success: function (resp) {
-                console.log(resp.result);
                 if (resp.result === "success") {
                     outer.menu.root.settings.username = newusername;
-                    outer.menu.root.settings.photo = photo;
-                    outer.menu.root.settings.login_on_remote();
+                    //outer.menu.root.settings.photo = photo;
+                } else {
+                    alert(resp.result);
+                    outer.$username.html(outer.menu.root.settings.username);
                 }
             }
         });
@@ -386,7 +385,7 @@ class Info {
 
         this.$back_button.click(function () {
             outer.hide();
-            console.log(outer.menu.root.settings.username);
+            //console.log(outer.menu.root.settings.username);
         });
 
         this.$logout_button.click(function () {
@@ -411,7 +410,8 @@ class Info {
             outer.$name_input.hide();
             outer.$username.show();
         });
-        this.fix_photo();
+
+        //this.fix_photo();
     }
 
     show_fix() {
