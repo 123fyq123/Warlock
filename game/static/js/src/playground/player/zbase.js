@@ -1,5 +1,5 @@
-class Player extends AcGameObject{
-    constructor(playground, x, y, radius, color, speed, character, username, photo){
+class Player extends AcGameObject {
+    constructor(playground, x, y, radius, color, speed, character, username, photo) {
         super();
         this.playground = playground;
         this.ctx = this.playground.game_map.ctx;
@@ -40,7 +40,7 @@ class Player extends AcGameObject{
     }
 
     start() {
-        this.playground.player_count ++;
+        this.playground.player_count++;
         this.playground.notice_board.write("已就绪：" + this.playground.player_count + "人");
 
         if (this.playground.player_count >= 2) {
@@ -48,36 +48,36 @@ class Player extends AcGameObject{
             this.playground.notice_board.write("Fighting!");
         }
 
-        if(this.character === "me") { 
+        if (this.character === "me") {
             this.add_listening_events();
-        } else if(this.character === "robot"){
+        } else if (this.character === "robot") {
             let tx = Math.random() * this.playground.width / this.playground.scale;
             let ty = Math.random() * this.playground.height / this.playground.scale;
             this.move_to(tx, ty);
         }
     }
 
-    add_listening_events(){
+    add_listening_events() {
         let outer = this;
-        this.playground.game_map.$canvas.on("contextmenu", function(){
+        this.playground.game_map.$canvas.on("contextmenu", function () {
             return false;
         });
 
-        this.playground.game_map.$canvas.mousedown(function(e){
+        this.playground.game_map.$canvas.mousedown(function (e) {
             if (outer.playground.state !== "fighting") // 人数未满b无法移动
                 return true;
 
 
             const rect = outer.ctx.canvas.getBoundingClientRect();
-            if(e.which === 3) {
+            if (e.which === 3) {
                 let tx = (e.clientX - rect.left) / outer.playground.scale;
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
                 outer.move_to(tx, ty);
 
-                if(outer.playground.mode === "multi mode") {
+                if (outer.playground.mode === "multi mode") {
                     outer.playground.mps.send_move_to(tx, ty);
                 }
-            } else if(e.which === 1 && outer.radius > 0.01){
+            } else if (e.which === 1 && outer.radius > 0.01) {
                 let tx = (e.clientX - rect.left) / outer.playground.scale;
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
                 if (outer.cur_skill === "fireball") {
@@ -103,7 +103,7 @@ class Player extends AcGameObject{
             }
         });
 
-        this.playground.game_map.$canvas.keydown(function(e){
+        this.playground.game_map.$canvas.keydown(function (e) {
             if (e.which === 13) { // enter键
                 if (outer.playground.mode === "multi mode") { // 多人模式打开聊天框
                     outer.playground.chat_field.show_input();
@@ -118,13 +118,14 @@ class Player extends AcGameObject{
             if (outer.playground.state !== "fighting")
                 return true; // 人数未满无法释放技能
 
-            if (e.which === 81) { // q键
-                if(outer.fireball_coldtime > outer.eps || outer.spent_time < 3) 
+            if (String.fromCharCode(e.which) === outer.playground.root.settings.fireball_key) { // q键
+
+                if (outer.fireball_coldtime > outer.eps || outer.spent_time < 3)
                     return true;
 
                 outer.cur_skill = "fireball";
                 return false;
-            } else if (e.which === 70) { // f键
+            } else if (String.fromCharCode(e.which) === outer.playground.root.settings.blink_key) { // f键
                 if (outer.blink_coldtime > outer.eps)
                     return true;
 
@@ -152,7 +153,7 @@ class Player extends AcGameObject{
     }
 
     destroy_fireball(uuid) {
-        for (let i = 0; i < this.fireballs.length; i ++ ) {
+        for (let i = 0; i < this.fireballs.length; i++) {
             let fireball = this.fireballs[i];
             if (fireball.uuid === uuid) {
                 fireball.destroy();
@@ -173,7 +174,7 @@ class Player extends AcGameObject{
     }
 
     is_attacked(angle, damage) {
-        for(let i = 0; i < 20 + Math.random() * 10; i ++ ){ 
+        for (let i = 0; i < 20 + Math.random() * 10; i++) {
             let x = this.x;
             let y = this.y;
             let radius = this.radius * Math.random() * 0.1;
@@ -186,7 +187,7 @@ class Player extends AcGameObject{
             new Particle(this.playground, x, y, radius, vx, vy, color, speed, move_length);
         }
         this.radius -= damage;
-        if(this.radius < this.eps) {
+        if (this.radius < this.eps) {
             this.destroy();
             this.check_success();
             if (this.character === "me") {
@@ -210,9 +211,9 @@ class Player extends AcGameObject{
         let outer = this;
         if (this.return_time) clearTimeout(this.return_time);
 
-        this.return_time = setTimeout(function(){
+        this.return_time = setTimeout(function () {
             outer.playground.score_board.$return_button.fadeIn();
-        },3000);
+        }, 3000);
 
     }
 
@@ -221,21 +222,20 @@ class Player extends AcGameObject{
         if (this.time_id1) clearTimeout(this.time_id1);
         if (this.time_id2) clearTimeout(this.time_id2);
 
-        this.time_id1 = setTimeout(function(){
+        this.time_id1 = setTimeout(function () {
             outer.playground.notice_board.write("3秒后返回主菜单");
             outer.time_id1 = null;
-        },3000);
+        }, 3000);
 
-        this.time_id2 = setTimeout(function(){
+        this.time_id2 = setTimeout(function () {
             outer.playground.hide();
             outer.playground.root.menu.show();
             outer.time_id2 = null;
-        },6000);
+        }, 6000);
     }
 
     check_success() {
-        if (this.playground.player_count === 1)
-        {
+        if (this.playground.player_count === 1) {
             if (this.playground.players[0].character === "me") {
                 this.playground.notice_board.write("你赢了");
                 this.playground.score_board.win();
@@ -262,7 +262,7 @@ class Player extends AcGameObject{
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    move_to(tx, ty){
+    move_to(tx, ty) {
         this.move_length = this.get_dist(this.x, this.y, tx, ty);
         let angle = Math.atan2(ty - this.y, tx - this.x);
         this.vx = Math.cos(angle);
@@ -271,7 +271,7 @@ class Player extends AcGameObject{
     }
 
 
-    update(){
+    update() {
         this.spent_time += this.timedelta / 1000;
 
         if (this.character === "me" && this.playground.state === "fighting") {
@@ -291,7 +291,7 @@ class Player extends AcGameObject{
     }
 
     update_move() { // 更新玩家移动
-        if(this.character === "robot" && this.spent_time > 3 && Math.random() < 1/100.0) {
+        if (this.character === "robot" && this.spent_time > 3 && Math.random() < 1 / 100.0) {
             let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
             if (player.uuid === this.uuid) return false;
             let tx = player.x + player.speed * this.vx * 0.3;
@@ -299,7 +299,7 @@ class Player extends AcGameObject{
 
             this.shoot_fireball(tx, ty);
         }
-        if(this.damage_speed > this.eps) {
+        if (this.damage_speed > this.eps) {
             this.vx = this.vy = 0;
             this.move_length = 0;
             this.x += this.damage_x * this.damage_speed * this.timedelta / 1000;
@@ -307,10 +307,10 @@ class Player extends AcGameObject{
             this.damage_speed *= this.friction;
         } else {
 
-            if(this.move_length < this.eps) {
+            if (this.move_length < this.eps) {
                 this.move_length = 0;
                 this.vx = this.vy = 0;
-                if(this.character === "robot") {
+                if (this.character === "robot") {
                     let tx = Math.random() * this.playground.width / this.playground.scale;
                     let ty = Math.random() * this.playground.height / this.playground.scale;
                     this.move_to(tx, ty);
@@ -325,14 +325,14 @@ class Player extends AcGameObject{
     }
 
 
-    render(){
+    render() {
         let scale = this.playground.scale;
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
         this.ctx.stroke();
         this.ctx.clip();
-        this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale); 
+        this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale);
         this.ctx.restore();
 
         if (this.character === "me" && this.playground.state === "fighting") {
@@ -348,7 +348,7 @@ class Player extends AcGameObject{
         this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
         this.ctx.stroke();
         this.ctx.clip();
-        this.ctx.drawImage(this.fireball_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale); 
+        this.ctx.drawImage(this.fireball_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore(); // 显示火球技能图标
 
         if (this.fireball_coldtime > 0) {
@@ -366,7 +366,7 @@ class Player extends AcGameObject{
         this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
         this.ctx.stroke();
         this.ctx.clip();
-        this.ctx.drawImage(this.blink_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale); 
+        this.ctx.drawImage(this.blink_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore(); // 显示火球技能图标
 
         if (this.blink_coldtime > 0) {
@@ -386,10 +386,10 @@ class Player extends AcGameObject{
             }
         }
 
-        for (let i = 0; i < this.playground.players.length; i ++ ) {
-            if (this.playground.players[i] === this ) {
+        for (let i = 0; i < this.playground.players.length; i++) {
+            if (this.playground.players[i] === this) {
                 this.playground.players.splice(i, 1);
-                this.playground.player_count -- ;
+                this.playground.player_count--;
                 break;
             }
         }

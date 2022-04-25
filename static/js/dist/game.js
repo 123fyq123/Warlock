@@ -274,6 +274,16 @@ class Info {
             <div class="ac-game-info-item-userinfo-changename ac-game-info-item-userinfo-changename-confirm">确认</div>
             <div class="ac-game-info-item-userinfo-return">退出账号</div>
         </div>
+        <div class="ac-game-info-gameexplain">
+            一款类似于球球大作战的游戏~<br>
+            目前仍在开发中，感谢大家支持~<br>
+            <br>
+            鼠标右键: 小球移动<br>
+            Q+鼠标左键: 发射火球<br>
+            F+鼠标左键: 闪现(有距离限制)<br>
+            多人模式局内聊天：&ltEnter&gt <br>
+             关闭局内聊天：&ltEsc&gt <br>
+        </div>
     </div>
 </div>
 `);
@@ -291,13 +301,16 @@ class Info {
         this.$logout_button = this.$information.find('.ac-game-info-item-userinfo-return');
         this.$name_input = this.$information.find('.ac-game-info-item-userinfo-signature-change');
 
+        this.$info = this.$information.find('.ac-game-item-userinfo');
         this.$username = this.$information.find('.ac-game-info-item-userinfo-username');
         this.$username.attr("title", this.menu.root.settings.username);
         this.$back_button = this.$information.find('.ac-game-info-item-back');
         this.$img = this.$information.find('.ac-game-info-item-userinfo-photo');
-        //this.$photo_input = this.$information.find('.ac-game-info-item-userinfo-input-photo');
         this.$name_input.hide();
         this.$information.hide();
+
+        this.$gameexplain = this.$information.find('.ac-game-info-gameexplain');
+        this.$gameexplain.hide();
         this.change_photo();
         this.change_username();
         this.start();
@@ -314,40 +327,6 @@ class Info {
     change_username() {
         this.$username.html(this.menu.root.settings.username); // div 内文字赋值
     }
-
-
-    // fix_photo() {
-    //     let dataBase64 = '';
-    //     let outer = this;
-    //     let fileinput = document.getElementById('ac-game-info-item-userinfo-input-photo');
-    //     fileinput.addEventListener('change', function () {
-    //         outer.$img.css("backgroundImage", "");
-    //         if (!fileinput.value) {
-    //             alert("没有选择文件");
-    //             return false;
-    //         }
-
-    //         let file = fileinput.files[0];
-    //         let reader = new FileReader();
-    //         let size = file.size;
-    //         if (size >= 1 * 1024 * 1024) {
-    //             alert("文件大于1M！");
-    //             outer.$img.attr('src', outer.menu.root.settings.photo);
-    //             return false;
-    //         }
-
-    //         if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
-    //             alert("图片格式错误！");
-    //             return false;
-    //         }
-    //         reader.onload = function (e) { // 文件加载完后执行
-    //             dataBase64 = e.target.result;
-    //             outer.$img.attr("src", dataBase64);
-    //             outer.change_info_on_remote();
-    //         };
-    //         reader.readAsDataURL(file); // 变成URL
-    //     });
-    // }
 
     change_info_on_remote() {
         let outer = this;
@@ -411,7 +390,19 @@ class Info {
             outer.$username.show();
         });
 
-        //this.fix_photo();
+        this.$explain.click(function () {
+            // outer.$info.hide();
+            outer.$img.hide();
+            outer.$change_info.hide();
+            outer.$username.hide();
+            outer.$logout_button.hide();
+            outer.$gameexplain.show();
+        });
+
+        this.$account_settings.click(function () {
+            outer.$gameexplain.hide();
+            outer.init_account_settings_show();
+        });
     }
 
     show_fix() {
@@ -424,6 +415,13 @@ class Info {
 
     hide() {
         this.$information.hide();
+    }
+
+    init_account_settings_show() {
+        this.$img.show();
+        this.$change_info.show();
+        this.$username.show();
+        this.$logout_button.show();
     }
 
     show() {
@@ -751,8 +749,8 @@ class Particle extends AcGameObject {
         this.ctx.fill();
     }
 }
-class Player extends AcGameObject{
-    constructor(playground, x, y, radius, color, speed, character, username, photo){
+class Player extends AcGameObject {
+    constructor(playground, x, y, radius, color, speed, character, username, photo) {
         super();
         this.playground = playground;
         this.ctx = this.playground.game_map.ctx;
@@ -793,7 +791,7 @@ class Player extends AcGameObject{
     }
 
     start() {
-        this.playground.player_count ++;
+        this.playground.player_count++;
         this.playground.notice_board.write("已就绪：" + this.playground.player_count + "人");
 
         if (this.playground.player_count >= 2) {
@@ -801,36 +799,36 @@ class Player extends AcGameObject{
             this.playground.notice_board.write("Fighting!");
         }
 
-        if(this.character === "me") { 
+        if (this.character === "me") {
             this.add_listening_events();
-        } else if(this.character === "robot"){
+        } else if (this.character === "robot") {
             let tx = Math.random() * this.playground.width / this.playground.scale;
             let ty = Math.random() * this.playground.height / this.playground.scale;
             this.move_to(tx, ty);
         }
     }
 
-    add_listening_events(){
+    add_listening_events() {
         let outer = this;
-        this.playground.game_map.$canvas.on("contextmenu", function(){
+        this.playground.game_map.$canvas.on("contextmenu", function () {
             return false;
         });
 
-        this.playground.game_map.$canvas.mousedown(function(e){
+        this.playground.game_map.$canvas.mousedown(function (e) {
             if (outer.playground.state !== "fighting") // 人数未满b无法移动
                 return true;
 
 
             const rect = outer.ctx.canvas.getBoundingClientRect();
-            if(e.which === 3) {
+            if (e.which === 3) {
                 let tx = (e.clientX - rect.left) / outer.playground.scale;
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
                 outer.move_to(tx, ty);
 
-                if(outer.playground.mode === "multi mode") {
+                if (outer.playground.mode === "multi mode") {
                     outer.playground.mps.send_move_to(tx, ty);
                 }
-            } else if(e.which === 1 && outer.radius > 0.01){
+            } else if (e.which === 1 && outer.radius > 0.01) {
                 let tx = (e.clientX - rect.left) / outer.playground.scale;
                 let ty = (e.clientY - rect.top) / outer.playground.scale;
                 if (outer.cur_skill === "fireball") {
@@ -856,7 +854,7 @@ class Player extends AcGameObject{
             }
         });
 
-        this.playground.game_map.$canvas.keydown(function(e){
+        this.playground.game_map.$canvas.keydown(function (e) {
             if (e.which === 13) { // enter键
                 if (outer.playground.mode === "multi mode") { // 多人模式打开聊天框
                     outer.playground.chat_field.show_input();
@@ -871,13 +869,14 @@ class Player extends AcGameObject{
             if (outer.playground.state !== "fighting")
                 return true; // 人数未满无法释放技能
 
-            if (e.which === 81) { // q键
-                if(outer.fireball_coldtime > outer.eps || outer.spent_time < 3) 
+            if (String.fromCharCode(e.which) === outer.playground.root.settings.fireball_key) { // q键
+
+                if (outer.fireball_coldtime > outer.eps || outer.spent_time < 3)
                     return true;
 
                 outer.cur_skill = "fireball";
                 return false;
-            } else if (e.which === 70) { // f键
+            } else if (String.fromCharCode(e.which) === outer.playground.root.settings.blink_key) { // f键
                 if (outer.blink_coldtime > outer.eps)
                     return true;
 
@@ -905,7 +904,7 @@ class Player extends AcGameObject{
     }
 
     destroy_fireball(uuid) {
-        for (let i = 0; i < this.fireballs.length; i ++ ) {
+        for (let i = 0; i < this.fireballs.length; i++) {
             let fireball = this.fireballs[i];
             if (fireball.uuid === uuid) {
                 fireball.destroy();
@@ -926,7 +925,7 @@ class Player extends AcGameObject{
     }
 
     is_attacked(angle, damage) {
-        for(let i = 0; i < 20 + Math.random() * 10; i ++ ){ 
+        for (let i = 0; i < 20 + Math.random() * 10; i++) {
             let x = this.x;
             let y = this.y;
             let radius = this.radius * Math.random() * 0.1;
@@ -939,7 +938,7 @@ class Player extends AcGameObject{
             new Particle(this.playground, x, y, radius, vx, vy, color, speed, move_length);
         }
         this.radius -= damage;
-        if(this.radius < this.eps) {
+        if (this.radius < this.eps) {
             this.destroy();
             this.check_success();
             if (this.character === "me") {
@@ -963,9 +962,9 @@ class Player extends AcGameObject{
         let outer = this;
         if (this.return_time) clearTimeout(this.return_time);
 
-        this.return_time = setTimeout(function(){
+        this.return_time = setTimeout(function () {
             outer.playground.score_board.$return_button.fadeIn();
-        },3000);
+        }, 3000);
 
     }
 
@@ -974,21 +973,20 @@ class Player extends AcGameObject{
         if (this.time_id1) clearTimeout(this.time_id1);
         if (this.time_id2) clearTimeout(this.time_id2);
 
-        this.time_id1 = setTimeout(function(){
+        this.time_id1 = setTimeout(function () {
             outer.playground.notice_board.write("3秒后返回主菜单");
             outer.time_id1 = null;
-        },3000);
+        }, 3000);
 
-        this.time_id2 = setTimeout(function(){
+        this.time_id2 = setTimeout(function () {
             outer.playground.hide();
             outer.playground.root.menu.show();
             outer.time_id2 = null;
-        },6000);
+        }, 6000);
     }
 
     check_success() {
-        if (this.playground.player_count === 1)
-        {
+        if (this.playground.player_count === 1) {
             if (this.playground.players[0].character === "me") {
                 this.playground.notice_board.write("你赢了");
                 this.playground.score_board.win();
@@ -1015,7 +1013,7 @@ class Player extends AcGameObject{
         return Math.sqrt(dx * dx + dy * dy);
     }
 
-    move_to(tx, ty){
+    move_to(tx, ty) {
         this.move_length = this.get_dist(this.x, this.y, tx, ty);
         let angle = Math.atan2(ty - this.y, tx - this.x);
         this.vx = Math.cos(angle);
@@ -1024,7 +1022,7 @@ class Player extends AcGameObject{
     }
 
 
-    update(){
+    update() {
         this.spent_time += this.timedelta / 1000;
 
         if (this.character === "me" && this.playground.state === "fighting") {
@@ -1044,7 +1042,7 @@ class Player extends AcGameObject{
     }
 
     update_move() { // 更新玩家移动
-        if(this.character === "robot" && this.spent_time > 3 && Math.random() < 1/100.0) {
+        if (this.character === "robot" && this.spent_time > 3 && Math.random() < 1 / 100.0) {
             let player = this.playground.players[Math.floor(Math.random() * this.playground.players.length)];
             if (player.uuid === this.uuid) return false;
             let tx = player.x + player.speed * this.vx * 0.3;
@@ -1052,7 +1050,7 @@ class Player extends AcGameObject{
 
             this.shoot_fireball(tx, ty);
         }
-        if(this.damage_speed > this.eps) {
+        if (this.damage_speed > this.eps) {
             this.vx = this.vy = 0;
             this.move_length = 0;
             this.x += this.damage_x * this.damage_speed * this.timedelta / 1000;
@@ -1060,10 +1058,10 @@ class Player extends AcGameObject{
             this.damage_speed *= this.friction;
         } else {
 
-            if(this.move_length < this.eps) {
+            if (this.move_length < this.eps) {
                 this.move_length = 0;
                 this.vx = this.vy = 0;
-                if(this.character === "robot") {
+                if (this.character === "robot") {
                     let tx = Math.random() * this.playground.width / this.playground.scale;
                     let ty = Math.random() * this.playground.height / this.playground.scale;
                     this.move_to(tx, ty);
@@ -1078,14 +1076,14 @@ class Player extends AcGameObject{
     }
 
 
-    render(){
+    render() {
         let scale = this.playground.scale;
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.arc(this.x * scale, this.y * scale, this.radius * scale, 0, Math.PI * 2, false);
         this.ctx.stroke();
         this.ctx.clip();
-        this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale); 
+        this.ctx.drawImage(this.img, (this.x - this.radius) * scale, (this.y - this.radius) * scale, this.radius * 2 * scale, this.radius * 2 * scale);
         this.ctx.restore();
 
         if (this.character === "me" && this.playground.state === "fighting") {
@@ -1101,7 +1099,7 @@ class Player extends AcGameObject{
         this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
         this.ctx.stroke();
         this.ctx.clip();
-        this.ctx.drawImage(this.fireball_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale); 
+        this.ctx.drawImage(this.fireball_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore(); // 显示火球技能图标
 
         if (this.fireball_coldtime > 0) {
@@ -1119,7 +1117,7 @@ class Player extends AcGameObject{
         this.ctx.arc(x * scale, y * scale, r * scale, 0, Math.PI * 2, false);
         this.ctx.stroke();
         this.ctx.clip();
-        this.ctx.drawImage(this.blink_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale); 
+        this.ctx.drawImage(this.blink_img, (x - r) * scale, (y - r) * scale, r * 2 * scale, r * 2 * scale);
         this.ctx.restore(); // 显示火球技能图标
 
         if (this.blink_coldtime > 0) {
@@ -1139,10 +1137,10 @@ class Player extends AcGameObject{
             }
         }
 
-        for (let i = 0; i < this.playground.players.length; i ++ ) {
-            if (this.playground.players[i] === this ) {
+        for (let i = 0; i < this.playground.players.length; i++) {
+            if (this.playground.players[i] === this) {
                 this.playground.players.splice(i, 1);
-                this.playground.player_count -- ;
+                this.playground.player_count--;
                 break;
             }
         }
@@ -1611,14 +1609,15 @@ class AcGamePlayground{
         this.$playground.hide()
     }
 }
-class Settings{
-    constructor(root){
+class Settings {
+    constructor(root) {
         this.root = root;
         this.platform = "WEB";
         if (this.root.AcWingOS) this.platform = "ACAPP";
         this.username = "";
         this.photo = "";
-
+        this.fireball_key = "81";
+        this.blink_key = "70";
         this.$settings = $(`
 <div class="ac-game-settings">
     <div class="ac-game-settings-login">
@@ -1719,8 +1718,8 @@ class Settings{
         this.start();
     }
 
-    start(){
-        if(this.platform === "ACAPP") {
+    start() {
+        if (this.platform === "ACAPP") {
             this.getinfo_acapp();
         } else {
             this.getinfo_web();
@@ -1733,7 +1732,7 @@ class Settings{
         this.add_listening_events_login();
         this.add_listening_events_register();
 
-        this.$acwing_login.click(function(){
+        this.$acwing_login.click(function () {
             outer.acwing_login();
         });
     }
@@ -1742,7 +1741,7 @@ class Settings{
         $.ajax({
             url: "https://app1372.acapp.acwing.com.cn/settings/acwing/web/apply_code",
             type: "GET",
-            success: function(resp) {
+            success: function (resp) {
                 if (resp.result === "success") {
                     window.location.replace(resp.apply_code_url);
                 }
@@ -1750,22 +1749,22 @@ class Settings{
         });
     }
 
-    add_listening_events_login(){
+    add_listening_events_login() {
         let outer = this;
-        this.$login_register.click(function(){
+        this.$login_register.click(function () {
             outer.register();
         });
-        this.$login_submit.click(function(){
+        this.$login_submit.click(function () {
             outer.login_on_remote();
         });
     }
 
-    add_listening_events_register(){
+    add_listening_events_register() {
         let outer = this;
-        this.$register_login.click(function(){
+        this.$register_login.click(function () {
             outer.login();
         });
-        this.$register_submit.click(function(){
+        this.$register_submit.click(function () {
             outer.register_on_remote();
         });
     }
@@ -1783,7 +1782,7 @@ class Settings{
                 username: username,
                 password: password,
             },
-            success: function(resp) {
+            success: function (resp) {
                 if (resp.result === "success") {
                     location.reload();
                 } else {
@@ -1808,7 +1807,7 @@ class Settings{
                 password: password,
                 password_confirm: password_confirm,
             },
-            success: function(resp) {
+            success: function (resp) {
                 if (resp.result === "success") {
                     location.reload(); // 刷新
                 } else {
@@ -1821,11 +1820,11 @@ class Settings{
     logout_on_remote() { // 在远程服务器上登出
         if (this.platform === "ACAPP") {
             this.root.AcWingOS.api.window.close(); // ACAPP端点击退出关闭窗口
-        }else {
+        } else {
             $.ajax({
                 url: "https://app1372.acapp.acwing.com.cn/settings/logout/",
                 type: "GET",
-                success: function(resp) {
+                success: function (resp) {
                     if (resp.result === "success") {
                         location.reload();
                     }
@@ -1844,9 +1843,9 @@ class Settings{
         this.$register.show();
     }
 
-    acapp_login(appid, redirect_uri, scope, state){
+    acapp_login(appid, redirect_uri, scope, state) {
         let outer = this;
-        this.root.AcWingOS.api.oauth2.authorize(appid, redirect_uri, scope, state, function(resp){
+        this.root.AcWingOS.api.oauth2.authorize(appid, redirect_uri, scope, state, function (resp) {
             if (resp.result === "success") {
                 outer.username = resp.username;
                 outer.photo = resp.photo;
@@ -1860,7 +1859,7 @@ class Settings{
         $.ajax({
             url: "https://app1372.acapp.acwing.com.cn/settings/acwing/acapp/apply_code",
             type: "GET",
-            success: function(resp) {
+            success: function (resp) {
                 if (resp.result === "success") {
                     outer.acapp_login(resp.appid, resp.redirect_uri, resp.scope, resp.state);
                 }
@@ -1868,7 +1867,7 @@ class Settings{
         });
     }
 
-    getinfo_web(){
+    getinfo_web() {
         let outer = this;
 
         $.ajax({
@@ -1877,10 +1876,12 @@ class Settings{
             data: {
                 platform: outer.platform,
             },
-            success: function(resp) {
+            success: function (resp) {
                 if (resp.result === "success") {
                     outer.username = resp.username;
                     outer.photo = resp.photo;
+                    outer.fireball_key = resp.fireball_key;
+                    outer.blink_key = resp.blink_key;
                     outer.hide();
                     outer.root.menu.show();
                 } else {
@@ -1890,11 +1891,11 @@ class Settings{
         })
     }
 
-    hide(){
+    hide() {
         this.$settings.hide();
     }
 
-    show(){
+    show() {
         this.$settings.show();
     }
 }

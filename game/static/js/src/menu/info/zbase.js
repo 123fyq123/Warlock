@@ -19,6 +19,16 @@ class Info {
             <div class="ac-game-info-item-userinfo-changename ac-game-info-item-userinfo-changename-confirm">确认</div>
             <div class="ac-game-info-item-userinfo-return">退出账号</div>
         </div>
+        <div class="ac-game-info-gameexplain">
+            一款类似于球球大作战的游戏~<br>
+            目前仍在开发中，感谢大家支持~<br>
+            <br>
+            鼠标右键: 小球移动<br>
+            Q+鼠标左键: 发射火球<br>
+            F+鼠标左键: 闪现(有距离限制)<br>
+            多人模式局内聊天：&ltEnter&gt <br>
+             关闭局内聊天：&ltEsc&gt <br>
+        </div>
     </div>
 </div>
 `);
@@ -36,13 +46,16 @@ class Info {
         this.$logout_button = this.$information.find('.ac-game-info-item-userinfo-return');
         this.$name_input = this.$information.find('.ac-game-info-item-userinfo-signature-change');
 
+        this.$info = this.$information.find('.ac-game-item-userinfo');
         this.$username = this.$information.find('.ac-game-info-item-userinfo-username');
         this.$username.attr("title", this.menu.root.settings.username);
         this.$back_button = this.$information.find('.ac-game-info-item-back');
         this.$img = this.$information.find('.ac-game-info-item-userinfo-photo');
-        //this.$photo_input = this.$information.find('.ac-game-info-item-userinfo-input-photo');
         this.$name_input.hide();
         this.$information.hide();
+
+        this.$gameexplain = this.$information.find('.ac-game-info-gameexplain');
+        this.$gameexplain.hide();
         this.change_photo();
         this.change_username();
         this.start();
@@ -59,40 +72,6 @@ class Info {
     change_username() {
         this.$username.html(this.menu.root.settings.username); // div 内文字赋值
     }
-
-
-    // fix_photo() {
-    //     let dataBase64 = '';
-    //     let outer = this;
-    //     let fileinput = document.getElementById('ac-game-info-item-userinfo-input-photo');
-    //     fileinput.addEventListener('change', function () {
-    //         outer.$img.css("backgroundImage", "");
-    //         if (!fileinput.value) {
-    //             alert("没有选择文件");
-    //             return false;
-    //         }
-
-    //         let file = fileinput.files[0];
-    //         let reader = new FileReader();
-    //         let size = file.size;
-    //         if (size >= 1 * 1024 * 1024) {
-    //             alert("文件大于1M！");
-    //             outer.$img.attr('src', outer.menu.root.settings.photo);
-    //             return false;
-    //         }
-
-    //         if (file.type !== 'image/jpeg' && file.type !== 'image/png' && file.type !== 'image/gif') {
-    //             alert("图片格式错误！");
-    //             return false;
-    //         }
-    //         reader.onload = function (e) { // 文件加载完后执行
-    //             dataBase64 = e.target.result;
-    //             outer.$img.attr("src", dataBase64);
-    //             outer.change_info_on_remote();
-    //         };
-    //         reader.readAsDataURL(file); // 变成URL
-    //     });
-    // }
 
     change_info_on_remote() {
         let outer = this;
@@ -156,7 +135,19 @@ class Info {
             outer.$username.show();
         });
 
-        //this.fix_photo();
+        this.$explain.click(function () {
+            // outer.$info.hide();
+            outer.$img.hide();
+            outer.$change_info.hide();
+            outer.$username.hide();
+            outer.$logout_button.hide();
+            outer.$gameexplain.show();
+        });
+
+        this.$account_settings.click(function () {
+            outer.$gameexplain.hide();
+            outer.init_account_settings_show();
+        });
     }
 
     show_fix() {
@@ -169,6 +160,13 @@ class Info {
 
     hide() {
         this.$information.hide();
+    }
+
+    init_account_settings_show() {
+        this.$img.show();
+        this.$change_info.show();
+        this.$username.show();
+        this.$logout_button.show();
     }
 
     show() {
