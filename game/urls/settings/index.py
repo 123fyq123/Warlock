@@ -4,6 +4,7 @@ from game.views.settings.login import signin
 from game.views.settings.logout import signout
 from game.views.settings.register import register
 from game.views.settings.change_info import change_info
+from game.views.settings.change_skill import change_skill
 
 urlpatterns = [
     path("getinfo/", getinfo, name="settings_getinfo"),
@@ -12,4 +13,5 @@ urlpatterns = [
     path("register/", register, name="settings_register"),
     path("acwing/", include("game.urls.settings.acwing.index")),
     path("change_info", change_info, name="settings_change_info"),
+    path("change_skill", change_skill, name="settings_change_skill"),
 ]

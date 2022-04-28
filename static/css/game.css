@@ -674,9 +674,114 @@ body {
 
 .ac-game-info-gameexplain {
     position: absolute;
-    top: 5vh;
+    top: 8vh;
     left: 20vw;
     font-size: 3.5vh;
     text-align: center;
     width: 40vw;
+}
+
+.ac-game-info-keyboard-settings-fireball-input {
+    position: absolute;
+    top: 5vh;
+    left: 30vw;
+    font-size: 3.5vh;
+    width: 3vw;
+}
+
+.ac-game-info-keyboard-settings-blink-input {
+    position: absolute;
+    top: 5vh;
+    left: 30vw;
+    font-size: 3.5vh;
+    width: 3vw;
+}
+
+.ac-game-info-keyboard-settings-fireball {
+    position: absolute;
+    top: 25vh;
+    left: 25vw;
+    font-size: 3.5vh;
+    width: 20vw;
+}
+
+.ac-game-info-keyboard-settings-blink {
+    position: absolute;
+    top: 15vh;
+    left: 25vw;
+    font-size: 3.5vh;
+    width: 20vw;
+}
+
+.ac-game-info-keyboard-settings-fireball-show {
+    position: absolute;
+    top: 25vh;
+    left: 35vw;
+    font-size: 3.5vh;
+    width: 3vw;
+}
+
+.ac-game-info-keyboard-settings-blink-show {
+    position: absolute;
+    top: 15vh;
+    left: 35vw;
+    font-size: 3.5vh;
+    width: 3vw;
+}
+
+.ac-game-info-keyboard-settings-fix {
+    position: absolute;
+    top: 35vh;
+    left: 32vw;
+    font-size: 6vh;
+    width: 20vw;
+    color: grey;
+}
+
+.ac-game-info-keyboard-settings-fix:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+    text-decoration: underline;
+}
+
+.ac-game-info-keyboard-settings-fireball-input {
+    position: absolute;
+    top: 25vh;
+    left: 35vw;
+    font-size: 3.5vh;
+    width: 3vw;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/text.png"), auto;
+    size: 1;
+}
+
+.ac-game-info-keyboard-settings-blink-input {
+    position: absolute;
+    top: 15vh;
+    left: 35vw;
+    font-size: 3.5vh;
+    width: 3vw;
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/text.png"), auto;
+    size: 1;
+}
+
+.ac-game-info-keyboard-settings-explain {
+    position: absolute;
+    top: 5vh;
+    left: 20vw;
+    font-size: 3vh;
+    width: 40vw;
+    text-align: center;
+}
+
+.ac-game-info-keyboard-settings-finish {
+    position: absolute;
+    top: 35vh;
+    left: 32vw;
+    font-size: 6vh;
+    width: 20vw;
+    color: grey;
+}
+
+.ac-game-info-keyboard-settings-finish:hover {
+    cursor: url("https://app1372.acapp.acwing.com.cn/static/image/menu/hand.png"), auto;
+    text-decoration: underline;
 }

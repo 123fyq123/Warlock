@@ -8,7 +8,7 @@ class Info {
             <div class="ac-game-info-item-back">×</div>
         <div class="ac-game-info-left">
             <div class="ac-game-info-item-account-settings">账号设置</div>
-            <div class="ac-game-info-item-explain">游戏说明</div>
+            <div class="ac-game-info-item-explain">技能介绍</div>
             <div class="ac-game-info-item-key">按键设置</div>
         </div>
         <div class="ac-game-info-item-userinfo">
@@ -20,14 +20,25 @@ class Info {
             <div class="ac-game-info-item-userinfo-return">退出账号</div>
         </div>
         <div class="ac-game-info-gameexplain">
-            一款类似于球球大作战的游戏~<br>
-            目前仍在开发中，感谢大家支持~<br>
+            以下是默认技能按键
+            <br>
             <br>
             鼠标右键: 小球移动<br>
             Q+鼠标左键: 发射火球<br>
             F+鼠标左键: 闪现(有距离限制)<br>
             多人模式局内聊天：&ltEnter&gt <br>
              关闭局内聊天：&ltEsc&gt <br>
+        </div>
+        <div class="ac-game-info-keyboard-settings">
+            <div class="ac-game-info-keyboard-settings-explain">目前只支持技能的修改,且只能修改为字母(大写)和数字</div>
+            <div class="ac-game-info-keyboard-settings-fireball">火球技能:</div>
+            <div class="ac-game-info-keyboard-settings-blink">闪现技能:</div>
+            <input class="ac-game-info-keyboard-settings-fireball-input">
+            <input class="ac-game-info-keyboard-settings-blink-input">
+            <div class="ac-game-info-keyboard-settings-fireball-show"></div>
+            <div class="ac-game-info-keyboard-settings-blink-show"></div>
+            <div class="ac-game-info-keyboard-settings-fix">编辑技能</div>
+            <div class="ac-game-info-keyboard-settings-finish">结束编辑</div>
         </div>
     </div>
 </div>
@@ -53,11 +64,25 @@ class Info {
         this.$img = this.$information.find('.ac-game-info-item-userinfo-photo');
         this.$name_input.hide();
         this.$information.hide();
+        this.$userinfo_father = this.$information.find('.ac-game-info-item-userinfo');
 
         this.$gameexplain = this.$information.find('.ac-game-info-gameexplain');
+
+        this.$fireball_input = this.$information.find('.ac-game-info-keyboard-settings-fireball-input');
+        this.$blink_input = this.$information.find('.ac-game-info-keyboard-settings-blink-input');
+        this.$fireball_show = this.$information.find('.ac-game-info-keyboard-settings-fireball-show');
+        this.$blink_show = this.$information.find('.ac-game-info-keyboard-settings-blink-show');
+        this.$fireball = this.$information.find('.ac-game-info-keyboard-settings-fireball');
+        this.$blink = this.$information.find('.ac-game-info-keyboard-settings-blink');
+        this.$skill_fix = this.$information.find('.ac-game-info-keyboard-settings-fix');
+        this.$skill_fix_father = this.$information.find('.ac-game-info-keyboard-settings');
+        this.$finish_skill = this.$information.find('.ac-game-info-keyboard-settings-finish');
+
         this.$gameexplain.hide();
+        this.show_account_settings();
         this.change_photo();
         this.change_username();
+        this.change_skill();
         this.start();
     }
 
@@ -73,11 +98,46 @@ class Info {
         this.$username.html(this.menu.root.settings.username); // div 内文字赋值
     }
 
+    change_skill() {
+        this.$fireball_show.html(this.menu.root.settings.fireball_key);
+        this.$blink_show.html(this.menu.root.settings.blink_key);
+    }
+
+    change_skill_on_remote() {
+        let outer = this;
+        let oldfireball = this.menu.root.settings.fireball_key;
+        let newfireball = this.$fireball_input.val();
+        let oldblink = this.menu.root.settings.blink_key;
+        let newblink = this.$blink_input.val();
+        let username = this.menu.root.settings.username;
+
+        $.ajax({
+            url: "https://app1372.acapp.acwing.com.cn/settings/change_skill",
+            type: "GET",
+            data: {
+                oldfireball: oldfireball,
+                newfireball: newfireball,
+                oldblink: oldblink,
+                newblink: newblink,
+                username: username,
+            },
+            success: function (resp) {
+                if (resp.result === "success") {
+                    outer.menu.root.settings.fireball_key = newfireball;
+                    outer.menu.root.settings.blink_key = newblink;
+                } else {
+                    alert(resp.result);
+                    outer.$fireball_show.html(outer.menu.root.settings.fireball_key);
+                    outer.$blink_show.html(outer.menu.root.settings.blink_key);
+                }
+            }
+        });
+    }
+
     change_info_on_remote() {
         let outer = this;
         let oldusername = this.menu.root.settings.username;
         let newusername = this.$name_input.val();
-        //let photo = this.$img.attr('src');
         $.ajax({
             url: "https://app1372.acapp.acwing.com.cn/settings/change_info",
             type: "GET",
@@ -97,6 +157,18 @@ class Info {
         });
     }
 
+    show_skill_fixed() {
+        let outer = this;
+        let fireball_text = outer.$fireball_input.val();
+        let blink_text = outer.$blink_input.val();
+        if (fireball_text && blink_text && fireball_text.length == 1 && blink_text.length == 1
+            && (fireball_text >= 'A' && fireball_text <= 'Z' || fireball_text >= '0' && fireball_text <= '9')
+            && (blink_text >= 'A' && blink_text <= 'Z' || blink_text >= '0' && blink_text <= '9')) {
+            outer.$blink_show.html(blink_text);
+            outer.$fireball_show.html(fireball_text);
+        }
+    }
+
     add_listening_events() {
         let outer = this;
         this.$back_button.mouseover(function () {
@@ -109,13 +181,16 @@ class Info {
 
         this.$back_button.click(function () {
             outer.hide();
-            //console.log(outer.menu.root.settings.username);
         });
 
         this.$logout_button.click(function () {
             outer.hide();
             outer.menu.hide();
             outer.menu.root.settings.logout_on_remote();
+        });
+
+        this.$account_settings.click(function () {
+            outer.show_account_settings();
         });
 
         this.$change_info.click(function () {
@@ -136,17 +211,33 @@ class Info {
         });
 
         this.$explain.click(function () {
-            // outer.$info.hide();
-            outer.$img.hide();
-            outer.$change_info.hide();
-            outer.$username.hide();
-            outer.$logout_button.hide();
-            outer.$gameexplain.show();
+            outer.show_explain();
         });
 
         this.$account_settings.click(function () {
             outer.$gameexplain.hide();
             outer.init_account_settings_show();
+        });
+
+        this.$key.click(function () {
+            outer.show_skill_fix();
+        });
+
+        this.$skill_fix.click(function () {
+            outer.$blink_input.val('');
+            outer.$fireball_input.val('');
+            outer.$fireball_input.show();
+            outer.$blink_input.show();
+            outer.$fireball_show.hide();
+            outer.$blink_show.hide();
+            outer.$skill_fix.hide();
+            outer.$finish_skill.show();
+        });
+
+        this.$finish_skill.click(function () {
+            outer.show_skill_fixed();
+            outer.change_skill_on_remote();
+            outer.finish_fix_skill();
         });
     }
 
@@ -157,6 +248,46 @@ class Info {
             outer.$username.html(text);
         }
     }
+
+    show_skill_fix() {
+        this.$userinfo_father.hide();
+        this.$gameexplain.hide();
+        this.$skill_fix_father.show();
+        this.$fireball_input.hide();
+        this.$blink_input.hide();
+        this.$finish_skill.hide();
+        this.$blink_show.show();
+        this.$fireball_show.show();
+        this.$skill_fix.show();
+    }
+
+    show_explain() {
+        this.$skill_fix_father.hide();
+        this.$userinfo_father.hide();
+        this.$gameexplain.show();
+        this.$blink_show.show();
+        this.$fireball_show.show();
+        this.$skill_fix.show();
+    }
+
+    finish_fix_skill() {
+        this.$blink_input.hide();
+        this.$fireball_input.hide();
+        this.$blink_show.show();
+        this.$fireball_show.show();
+        this.$skill_fix.show();
+        this.$finish_skill.hide();
+    }
+
+    show_account_settings() {
+        this.$skill_fix_father.hide();
+        this.$gameexplain.hide();
+        this.$userinfo_father.show();
+        this.$info_confirm.hide();
+        this.$name_input.hide();
+        this.$username.show();
+    }
+
 
     hide() {
         this.$information.hide();

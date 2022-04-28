@@ -9,12 +9,11 @@ class AcGameDesc {
         </div>
         <br/>
         <div class="ac-game-desc-field-explain">
-            <p>右键：点击可移动</p>
-            <p>q+左键：发射火球</p>
-            <p>f+左键：闪现</p>
-            <p>enter：多人模式下局内聊天</p>
-            <p>Esc：关闭聊天框</p>
-            <p>前3秒无法使用技能</p>
+            <p>一位计算机专业学生的第一个项目</p>
+            <p>一款类似于球球大作战的游戏</p>
+            <p>感谢Y总带我入坑~</p>
+            <p>希望大家多多支持！</p>
+            <p>目前仍在持续开发种</p>
         </div>
         <br/>
         <div class="ac-game-desc-field-confirm">

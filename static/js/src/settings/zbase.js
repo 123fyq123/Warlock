@@ -5,8 +5,8 @@ class Settings {
         if (this.root.AcWingOS) this.platform = "ACAPP";
         this.username = "";
         this.photo = "";
-        this.fireball_key = "81";
-        this.blink_key = "70";
+        this.fireball_key = "";
+        this.blink_key = "";
         this.$settings = $(`
 <div class="ac-game-settings">
     <div class="ac-game-settings-login">

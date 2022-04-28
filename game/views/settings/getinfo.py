@@ -21,6 +21,7 @@ def getinfo_web(request):
         })
     else:
         player = Player.objects.get(user=user)
+        # print(player.user.fireball)
         return JsonResponse({
             'result': "success",
             'username': player.user.username,
