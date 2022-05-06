@@ -2,7 +2,7 @@ class MultiPlayerSocket {
     constructor(playground) {
         this.playground = playground;
 
-        this.ws = new WebSocket("wss://app1372.acapp.acwing.com.cn/wss/multiplayer/"); // 建立连接
+        this.ws = new WebSocket("wss://fyqcode.top/wss/multiplayer/"); // 建立连接
 
         this.start();
     }
@@ -13,7 +13,7 @@ class MultiPlayerSocket {
 
     receive() {
         let outer = this;
-        this.ws.onmessage = function(e) { // 在前端接受wss信息的函数
+        this.ws.onmessage = function (e) { // 在前端接受wss信息的函数
             let data = JSON.parse(e.data); // 将JSON变成字符串
 
             let uuid = data.uuid;
@@ -22,17 +22,17 @@ class MultiPlayerSocket {
             let event = data.event;
             if (event === "create_player") {
                 outer.receive_create_player(uuid, data.username, data.photo);
-            } else if(event === "move_to") {
+            } else if (event === "move_to") {
                 outer.receive_move_to(uuid, data.tx, data.ty);
-            } else if(event === "shoot_fireball") {
+            } else if (event === "shoot_fireball") {
                 outer.receive_shoot_fireball(uuid, data.tx, data.ty, data.ball_uuid);
-            } else if(event === "attack") {
+            } else if (event === "attack") {
                 outer.receive_attack(uuid, data.attackee_uuid, data.x, data.y, data.angle, data.damage, data.ball_uuid);
-            } else if(event === "blink") {
+            } else if (event === "blink") {
                 outer.receive_blink(uuid, data.tx, data.ty);
-            } else if(event === "message") {
+            } else if (event === "message") {
                 outer.receive_message(uuid, data.username, data.text)
-            } else if(event === "return") {
+            } else if (event === "return") {
                 outer.receive_return(uuid, data.username);
             }
         };
@@ -67,9 +67,9 @@ class MultiPlayerSocket {
 
     get_player(uuid) { // 通过uuid暴力查找player
         let players = this.playground.players;
-        for (let i = 0; i < players.length; i ++ ) {
+        for (let i = 0; i < players.length; i++) {
             let player = players[i];
-            if(player.uuid === uuid) 
+            if (player.uuid === uuid)
                 return player;
         }
 
@@ -89,7 +89,7 @@ class MultiPlayerSocket {
     receive_move_to(uuid, tx, ty) { // 后端给前端发送消息需要接受函数
         let player = this.get_player(uuid);
 
-        if(player) {
+        if (player) {
             player.move_to(tx, ty);
         }
     }
@@ -105,7 +105,7 @@ class MultiPlayerSocket {
         }));
     }
 
-    receive_shoot_fireball(uuid, tx, ty, ball_uuid ){ //需要知道是谁发射的，第一个uuid是发射火球人的uuid
+    receive_shoot_fireball(uuid, tx, ty, ball_uuid) { //需要知道是谁发射的，第一个uuid是发射火球人的uuid
         let player = this.get_player(uuid);
 
         if (player) {
@@ -166,7 +166,7 @@ class MultiPlayerSocket {
     }
 
     receive_message(uuid, username, text) {
-            this.playground.chat_field.add_message(username, text);
+        this.playground.chat_field.add_message(username, text);
     }
 
     send_return(username) {

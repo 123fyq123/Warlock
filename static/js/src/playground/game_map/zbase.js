@@ -1,5 +1,5 @@
 class GameMap extends AcGameObject {
-    constructor(playground){
+    constructor(playground) {
         super();
         this.playground = playground;
         this.$canvas = $(`<canvas tabindex=0></canvas>`); // 使canvas能绑定监听事件
@@ -9,7 +9,7 @@ class GameMap extends AcGameObject {
         this.playground.$playground.append(this.$canvas);
 
         this.back_img = new Image();
-        this.back_img.src = "https://app1372.acapp.acwing.com.cn/static/image/menu/single_mode.jpg";
+        this.back_img.src = "https://fyqcode.top/static/image/menu/single_mode.jpg";
     }
 
     start() {
@@ -21,11 +21,11 @@ class GameMap extends AcGameObject {
         this.ctx.canvas.height = this.playground.height;
         this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
-    update(){
+    update() {
         this.render();
     }
 
-    render(){
+    render() {
         this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
         this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }

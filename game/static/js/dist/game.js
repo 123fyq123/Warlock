@@ -92,7 +92,7 @@ class AcGameChooseSkin {
 <div class="ac-game-choose-skin">
     <div class="ac-game-choose-skin-top">
         <div class="ac-game-choose-mode-top-left-triangle"></div>
-        <img class="ac-game-choose-skin-top-people-photo" src="https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/lbxx/lbxx.jpg"/>
+        <img class="ac-game-choose-skin-top-people-photo" src="https://fyqcode.top/static/image/playground/choose_skin/lbxx/lbxx.jpg"/>
         <div class="ac-game-choose-mode-top-right-triangle"></div>
     </div>
     <br/>
@@ -113,73 +113,73 @@ class AcGameChooseSkin {
 </div>
 `)
 
-    this.$choose_skin.hide();
-    this.$right_triangle = this.$choose_skin.find('.ac-game-choose-mode-top-right-triangle');
-    this.$left_triangle = this.$choose_skin.find('.ac-game-choose-mode-top-left-triangle');
-    this.$choose_people = this.$choose_skin.find('.ac-game-choose-skin-middle-people');
-    this.$people_explain = this.$choose_skin.find('.ac-game-choose-skin-middle-explain');
-    this.$people_confirm = this.$choose_skin.find('.ac-game-choose-skin-bottom-submit-confirm');
-    this.$people_return = this.$choose_skin.find('.ac-game-choose-skin-bottom-submit-return');
-    //this.$skin_img = this.$choose_skin.find('.ac-game-choose-skin-top-people-photo');
+        this.$choose_skin.hide();
+        this.$right_triangle = this.$choose_skin.find('.ac-game-choose-mode-top-right-triangle');
+        this.$left_triangle = this.$choose_skin.find('.ac-game-choose-mode-top-left-triangle');
+        this.$choose_people = this.$choose_skin.find('.ac-game-choose-skin-middle-people');
+        this.$people_explain = this.$choose_skin.find('.ac-game-choose-skin-middle-explain');
+        this.$people_confirm = this.$choose_skin.find('.ac-game-choose-skin-bottom-submit-confirm');
+        this.$people_return = this.$choose_skin.find('.ac-game-choose-skin-bottom-submit-return');
+        //this.$skin_img = this.$choose_skin.find('.ac-game-choose-skin-top-people-photo');
 
-    this.root.$ac_game.append(this.$choose_skin);
+        this.root.$ac_game.append(this.$choose_skin);
 
 
-    this.photo_url = [
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/lbxx.jpg",
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/dog.jpg",
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/fj.jpg",
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/zn.jpg",
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/ad.jpg",
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/nn.jpg",
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/mather.jpg",
-"https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/father.jpg",
-]
+        this.photo_url = [
+            "https://fyqcode.top/static/image/playground/choose_skin/lbxx.jpg",
+            "https://fyqcode.top/static/image/playground/choose_skin/dog.jpg",
+            "https://fyqcode.top/static/image/playground/choose_skin/fj.jpg",
+            "https://fyqcode.top/static/image/playground/choose_skin/zn.jpg",
+            "https://fyqcode.top/static/image/playground/choose_skin/ad.jpg",
+            "https://fyqcode.top/static/image/playground/choose_skin/nn.jpg",
+            "https://fyqcode.top/static/image/playground/choose_skin/mather.jpg",
+            "https://fyqcode.top/static/image/playground/choose_skin/father.jpg",
+        ]
 
-    this.people_name = ["野原新之助", "小白", "风间彻", "佐藤正男", "阿呆", "樱田妮妮", "野原美伢", "野原广志"];
-    this.people_explain = [
-"住在春日部郊区某住宅区一栋二层小平房。喜欢漂亮的大姐姐，深爱着娜娜子姐姐，喜欢做屁股外星人的动作。",
-"被抛弃的弃狗，后来被小新捡回家，取名为小白，后来又被小新称作野原小白。",
-"向日葵班学生。家境优越，喜欢装自己成熟，有点装腔作势，自尊心很强。幼儿园外上各种各样的补习班。小新和他经常碰到，他们两个总是吵架，但很快就会和好，是很好的朋友。",
-"向日葵班学生，爱哭。在朋友之间，脸的形式很像“饭团”。喜欢小爱。",
-"向日葵班学生。总是发呆，拖着鼻涕，说话的时候很敏锐。特长是用鼻涕制作螺旋桨和东京铁塔的事。最高兴的时候，流鼻涕快速旋转。",
-"向日葵班学生。喜欢当淑女，却总是很凶。喜欢玩超现实扮家家酒，朋友们都不愿意陪她玩，却不敢说什么。跟妈妈一样，不如意时常常在厕所或没有人的角落里拿兔子拳打脚踢来出气。",
-"年龄：35岁。生于秋田，是一个上班族，脚很臭，有着三十二年房贷……",
-"家庭主妇一枚，野原广志的妻子，小新、小葵的母亲。脾气暴躁，喜欢帅哥。",
-]
+        this.people_name = ["野原新之助", "小白", "风间彻", "佐藤正男", "阿呆", "樱田妮妮", "野原美伢", "野原广志"];
+        this.people_explain = [
+            "住在春日部郊区某住宅区一栋二层小平房。喜欢漂亮的大姐姐，深爱着娜娜子姐姐，喜欢做屁股外星人的动作。",
+            "被抛弃的弃狗，后来被小新捡回家，取名为小白，后来又被小新称作野原小白。",
+            "向日葵班学生。家境优越，喜欢装自己成熟，有点装腔作势，自尊心很强。幼儿园外上各种各样的补习班。小新和他经常碰到，他们两个总是吵架，但很快就会和好，是很好的朋友。",
+            "向日葵班学生，爱哭。在朋友之间，脸的形式很像“饭团”。喜欢小爱。",
+            "向日葵班学生。总是发呆，拖着鼻涕，说话的时候很敏锐。特长是用鼻涕制作螺旋桨和东京铁塔的事。最高兴的时候，流鼻涕快速旋转。",
+            "向日葵班学生。喜欢当淑女，却总是很凶。喜欢玩超现实扮家家酒，朋友们都不愿意陪她玩，却不敢说什么。跟妈妈一样，不如意时常常在厕所或没有人的角落里拿兔子拳打脚踢来出气。",
+            "年龄：35岁。生于秋田，是一个上班族，脚很臭，有着三十二年房贷……",
+            "家庭主妇一枚，野原广志的妻子，小新、小葵的母亲。脾气暴躁，喜欢帅哥。",
+        ]
 
-    this.cur_skin = 0;
-    this.total_skin = 8;
-    this.start();
+        this.cur_skin = 0;
+        this.total_skin = 8;
+        this.start();
 
 
     }
 
-    start(){
+    start() {
         this.add_listening_events();
     }
 
     add_listening_events() {
         let outer = this;
-        this.$left_triangle.click(function(){
+        this.$left_triangle.click(function () {
 
-            outer.cur_skin -- ;
+            outer.cur_skin--;
             if (outer.cur_skin < 0) outer.cur_skin = outer.total_skin - 1;
             outer.change_skin();
         });
 
-        this.$right_triangle.click(function(){
-            outer.cur_skin ++ ;
+        this.$right_triangle.click(function () {
+            outer.cur_skin++;
             if (outer.cur_skin >= outer.total_skin) outer.cur_skin = 0;
             outer.change_skin();
         });
 
-        this.$people_confirm.click(function(){
+        this.$people_confirm.click(function () {
             outer.hide();
-            outer.root.playground.show("single mode",outer.photo_url[outer.cur_skin]);
+            outer.root.playground.show("single mode", outer.photo_url[outer.cur_skin]);
         });
 
-        this.$people_return.click(function(){
+        this.$people_return.click(function () {
             outer.hide();
             outer.root.menu.show();
         });
@@ -366,7 +366,7 @@ class Info {
         let username = this.menu.root.settings.username;
 
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/change_skill",
+            url: "https://fyqcode.top/warlock/settings/change_skill",
             type: "GET",
             data: {
                 oldfireball: oldfireball,
@@ -393,7 +393,7 @@ class Info {
         let oldusername = this.menu.root.settings.username;
         let newusername = this.$name_input.val();
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/change_info",
+            url: "https://fyqcode.top/warlock/settings/change_info",
             type: "GET",
             data: {
                 oldusername: oldusername,
@@ -777,7 +777,7 @@ class ChatField {
     }
 }
 class GameMap extends AcGameObject {
-    constructor(playground){
+    constructor(playground) {
         super();
         this.playground = playground;
         this.$canvas = $(`<canvas tabindex=0></canvas>`); // 使canvas能绑定监听事件
@@ -787,7 +787,7 @@ class GameMap extends AcGameObject {
         this.playground.$playground.append(this.$canvas);
 
         this.back_img = new Image();
-        this.back_img.src = "https://app1372.acapp.acwing.com.cn/static/image/menu/single_mode.jpg";
+        this.back_img.src = "https://fyqcode.top/static/image/menu/single_mode.jpg";
     }
 
     start() {
@@ -799,11 +799,11 @@ class GameMap extends AcGameObject {
         this.ctx.canvas.height = this.playground.height;
         this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
-    update(){
+    update() {
         this.render();
     }
 
-    render(){
+    render() {
         this.ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
         this.ctx.drawImage(this.back_img, 0, 0, this.ctx.canvas.width, this.ctx.canvas.height);
     }
@@ -1440,7 +1440,7 @@ class MultiPlayerSocket {
     constructor(playground) {
         this.playground = playground;
 
-        this.ws = new WebSocket("wss://app1372.acapp.acwing.com.cn/wss/multiplayer/"); // 建立连接
+        this.ws = new WebSocket("wss://fyqcode.top/wss/multiplayer/"); // 建立连接
 
         this.start();
     }
@@ -1451,7 +1451,7 @@ class MultiPlayerSocket {
 
     receive() {
         let outer = this;
-        this.ws.onmessage = function(e) { // 在前端接受wss信息的函数
+        this.ws.onmessage = function (e) { // 在前端接受wss信息的函数
             let data = JSON.parse(e.data); // 将JSON变成字符串
 
             let uuid = data.uuid;
@@ -1460,17 +1460,17 @@ class MultiPlayerSocket {
             let event = data.event;
             if (event === "create_player") {
                 outer.receive_create_player(uuid, data.username, data.photo);
-            } else if(event === "move_to") {
+            } else if (event === "move_to") {
                 outer.receive_move_to(uuid, data.tx, data.ty);
-            } else if(event === "shoot_fireball") {
+            } else if (event === "shoot_fireball") {
                 outer.receive_shoot_fireball(uuid, data.tx, data.ty, data.ball_uuid);
-            } else if(event === "attack") {
+            } else if (event === "attack") {
                 outer.receive_attack(uuid, data.attackee_uuid, data.x, data.y, data.angle, data.damage, data.ball_uuid);
-            } else if(event === "blink") {
+            } else if (event === "blink") {
                 outer.receive_blink(uuid, data.tx, data.ty);
-            } else if(event === "message") {
+            } else if (event === "message") {
                 outer.receive_message(uuid, data.username, data.text)
-            } else if(event === "return") {
+            } else if (event === "return") {
                 outer.receive_return(uuid, data.username);
             }
         };
@@ -1505,9 +1505,9 @@ class MultiPlayerSocket {
 
     get_player(uuid) { // 通过uuid暴力查找player
         let players = this.playground.players;
-        for (let i = 0; i < players.length; i ++ ) {
+        for (let i = 0; i < players.length; i++) {
             let player = players[i];
-            if(player.uuid === uuid) 
+            if (player.uuid === uuid)
                 return player;
         }
 
@@ -1527,7 +1527,7 @@ class MultiPlayerSocket {
     receive_move_to(uuid, tx, ty) { // 后端给前端发送消息需要接受函数
         let player = this.get_player(uuid);
 
-        if(player) {
+        if (player) {
             player.move_to(tx, ty);
         }
     }
@@ -1543,7 +1543,7 @@ class MultiPlayerSocket {
         }));
     }
 
-    receive_shoot_fireball(uuid, tx, ty, ball_uuid ){ //需要知道是谁发射的，第一个uuid是发射火球人的uuid
+    receive_shoot_fireball(uuid, tx, ty, ball_uuid) { //需要知道是谁发射的，第一个uuid是发射火球人的uuid
         let player = this.get_player(uuid);
 
         if (player) {
@@ -1604,7 +1604,7 @@ class MultiPlayerSocket {
     }
 
     receive_message(uuid, username, text) {
-            this.playground.chat_field.add_message(username, text);
+        this.playground.chat_field.add_message(username, text);
     }
 
     send_return(username) {
@@ -1621,8 +1621,8 @@ class MultiPlayerSocket {
         this.playground.chat_field.add_message(username, text);
     }
 }
-class AcGamePlayground{
-    constructor(root){
+class AcGamePlayground {
+    constructor(root) {
         this.root = root;
         this.$playground = $(`<div class="ac-game-playground"></div>`);
 
@@ -1640,22 +1640,22 @@ class AcGamePlayground{
 
     create_uuid() {
         let res = "";
-        for (let i = 0; i < 8; i ++ ) {
+        for (let i = 0; i < 8; i++) {
             let x = parseInt(Math.floor(Math.random() * 10)); // 返回[0,1)之间的数
             res += x;
         }
         return res;
     }
 
-    start(){
+    start() {
         let outer = this;
         let uuid = this.create_uuid();
-        $(window).on('resize.${uuid}', function(){
+        $(window).on('resize.${uuid}', function () {
             outer.resize();
         });
 
         if (this.root.AcWingOS) {
-            this.root.AcWingOS.api.window.on_close(function(){
+            this.root.AcWingOS.api.window.on_close(function () {
                 $(window).off('resize.${uuid}');
             });
         }
@@ -1675,7 +1675,7 @@ class AcGamePlayground{
         }
     }
 
-    show(mode, photo){ // 打开playground
+    show(mode, photo) { // 打开playground
         let outer = this;
         this.$playground.show();
 
@@ -1693,28 +1693,28 @@ class AcGamePlayground{
         this.players = [];
         let num = [4, 6, 8];
         let num_id = this.root.choose_mode.cur_mode;
-        if(mode === "multi mode") {
+        if (mode === "multi mode") {
             this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
-        } else if(mode === "single mode") {
-             this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, photo));
+        } else if (mode === "single mode") {
+            this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, photo));
         }
         if (mode === "single mode") {
-            for (let i = 0; i < num[num_id]; i ++ ) {
-                let robot_photo = "https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/yz.jpg";
-                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  "white", 0.4, "robot", null ,robot_photo));
+            for (let i = 0; i < num[num_id]; i++) {
+                let robot_photo = "https://fyqcode.top/static/image/playground/choose_skin/yz.jpg";
+                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "robot", null, robot_photo));
             }
         } else if (mode === "multi mode") {
             this.chat_field = new ChatField(this);
             this.mps = new MultiPlayerSocket(this);
             this.mps.uuid = this.players[0].uuid;
 
-            this.mps.ws.onopen = function() {
+            this.mps.ws.onopen = function () {
                 outer.mps.send_create_player(outer.root.settings.username, outer.root.settings.photo);
             };
         }
     }
 
-    hide(){
+    hide() {
         while (this.players && this.players.length > 0) {
             this.players[0].destroy();
         }
@@ -1776,7 +1776,7 @@ class Settings {
         </div>
         <br>
         <div class="ac-game-settings-acwing">
-            <img width="30" src="https://app1372.acapp.acwing.com.cn/static/image/settings/acwing_logo.png">
+            <img width="30" src="https://fyqcode.top/static/image/settings/acwing_logo.png">
             <br>
             <div>
                 AcWing一键登录
@@ -1814,7 +1814,7 @@ class Settings {
         </div>
         <br>
         <div class="ac-game-settings-acwing">
-            <img width="30" src="https://app1372.acapp.acwing.com.cn/static/image/settings/acwing_logo.png">
+            <img width="30" src="https://fyqcode.top/static/image/settings/acwing_logo.png">
             <br>
             <div>
                 AcWing一键登录
@@ -1869,7 +1869,7 @@ class Settings {
 
     acwing_login() {
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/acwing/web/apply_code",
+            url: "https://fyqcode.top/warlock/settings/acwing/web/apply_code",
             type: "GET",
             success: function (resp) {
                 if (resp.result === "success") {
@@ -1906,7 +1906,7 @@ class Settings {
         this.$login_error_message.empty();
 
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/login/",
+            url: "https://fyqcode.top/warlock/settings/login/",
             type: "GET",
             data: {
                 username: username,
@@ -1930,7 +1930,7 @@ class Settings {
         this.$register_error_message.empty();
 
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/register/",
+            url: "https://fyqcode.top/warlock/settings/register/",
             type: "GET",
             data: {
                 username: username,
@@ -1952,7 +1952,7 @@ class Settings {
             this.root.AcWingOS.api.window.close(); // ACAPP端点击退出关闭窗口
         } else {
             $.ajax({
-                url: "https://app1372.acapp.acwing.com.cn/settings/logout/",
+                url: "https://fyqcode.top/warlock/settings/logout/",
                 type: "GET",
                 success: function (resp) {
                     if (resp.result === "success") {
@@ -1987,7 +1987,7 @@ class Settings {
     getinfo_acapp() {
         let outer = this;
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/acwing/acapp/apply_code",
+            url: "https://fyqcode.top/warlock/settings/acwing/acapp/apply_code",
             type: "GET",
             success: function (resp) {
                 if (resp.result === "success") {
@@ -2001,7 +2001,7 @@ class Settings {
         let outer = this;
 
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/getinfo/",
+            url: "https://fyqcode.top/warlock/settings/getinfo/",
             type: "GET",
             data: {
                 platform: outer.platform,

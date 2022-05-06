@@ -112,7 +112,7 @@ class Info {
         let username = this.menu.root.settings.username;
 
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/change_skill",
+            url: "https://fyqcode.top/warlock/settings/change_skill",
             type: "GET",
             data: {
                 oldfireball: oldfireball,
@@ -139,7 +139,7 @@ class Info {
         let oldusername = this.menu.root.settings.username;
         let newusername = this.$name_input.val();
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/change_info",
+            url: "https://fyqcode.top/warlock/settings/change_info",
             type: "GET",
             data: {
                 oldusername: oldusername,

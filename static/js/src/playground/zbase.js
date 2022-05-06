@@ -1,5 +1,5 @@
-class AcGamePlayground{
-    constructor(root){
+class AcGamePlayground {
+    constructor(root) {
         this.root = root;
         this.$playground = $(`<div class="ac-game-playground"></div>`);
 
@@ -17,22 +17,22 @@ class AcGamePlayground{
 
     create_uuid() {
         let res = "";
-        for (let i = 0; i < 8; i ++ ) {
+        for (let i = 0; i < 8; i++) {
             let x = parseInt(Math.floor(Math.random() * 10)); // 返回[0,1)之间的数
             res += x;
         }
         return res;
     }
 
-    start(){
+    start() {
         let outer = this;
         let uuid = this.create_uuid();
-        $(window).on('resize.${uuid}', function(){
+        $(window).on('resize.${uuid}', function () {
             outer.resize();
         });
 
         if (this.root.AcWingOS) {
-            this.root.AcWingOS.api.window.on_close(function(){
+            this.root.AcWingOS.api.window.on_close(function () {
                 $(window).off('resize.${uuid}');
             });
         }
@@ -52,7 +52,7 @@ class AcGamePlayground{
         }
     }
 
-    show(mode, photo){ // 打开playground
+    show(mode, photo) { // 打开playground
         let outer = this;
         this.$playground.show();
 
@@ -70,28 +70,28 @@ class AcGamePlayground{
         this.players = [];
         let num = [4, 6, 8];
         let num_id = this.root.choose_mode.cur_mode;
-        if(mode === "multi mode") {
+        if (mode === "multi mode") {
             this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, this.root.settings.photo));
-        } else if(mode === "single mode") {
-             this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, photo));
+        } else if (mode === "single mode") {
+            this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "me", this.root.settings.username, photo));
         }
         if (mode === "single mode") {
-            for (let i = 0; i < num[num_id]; i ++ ) {
-                let robot_photo = "https://app1372.acapp.acwing.com.cn/static/image/playground/choose_skin/yz.jpg";
-                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05,  "white", 0.4, "robot", null ,robot_photo));
+            for (let i = 0; i < num[num_id]; i++) {
+                let robot_photo = "https://fyqcode.top/static/image/playground/choose_skin/yz.jpg";
+                this.players.push(new Player(this, this.width / 2 / this.scale, 0.5, 0.05, "white", 0.4, "robot", null, robot_photo));
             }
         } else if (mode === "multi mode") {
             this.chat_field = new ChatField(this);
             this.mps = new MultiPlayerSocket(this);
             this.mps.uuid = this.players[0].uuid;
 
-            this.mps.ws.onopen = function() {
+            this.mps.ws.onopen = function () {
                 outer.mps.send_create_player(outer.root.settings.username, outer.root.settings.photo);
             };
         }
     }
 
-    hide(){
+    hide() {
         while (this.players && this.players.length > 0) {
             this.players[0].destroy();
         }

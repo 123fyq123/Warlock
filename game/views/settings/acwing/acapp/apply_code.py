@@ -12,7 +12,7 @@ def get_state():
 
 def apply_code(request):
     appid = "1372"
-    redirect_uri = quote("https://app1372.acapp.acwing.com.cn/settings/acwing/acapp/receive_code/")
+    redirect_uri = quote("https://fyqcode.top/warlock/settings/acwing/acapp/receive_code/")
     scope = "userinfo"
     state = get_state()
 

@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ft90(zk29bap(qjtcgx1s!*p1ltxxdo=bw!8rkt%mv2s2bof^x
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['123.56.147.91', 'app1372.acapp.acwing.com.cn']
+ALLOWED_HOSTS = ['123.56.147.91', 'fyqcode.top']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'blog',
 ]
 
 MIDDLEWARE = [
@@ -83,14 +84,14 @@ DATABASES = {
     }
 }
 
-CACHES = { 
+CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': 'redis://127.0.0.1:6379/1',
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },  
-    },  
+        },
+    },
 }
 USER_AGENTS_CACHE = 'default'
 

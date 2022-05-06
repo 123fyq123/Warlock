@@ -23,7 +23,7 @@ class Settings{
         let outer = this;
 
         $.ajax({
-            url: "https://app1372.acapp.acwing.com.cn/settings/getinfo/",
+            url: "https://fyqcode.top/warlock/settings/getinfo/",
             type: "GET",
             data: {
                 platform: outer.platform,
